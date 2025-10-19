@@ -4,9 +4,7 @@ A web application to track progress in collecting songs and instruments from the
 
 ## 🌐 Online Access
 
-**🔗 [Access the application here](https://your-username.github.io/nw-music/)**
-
-> ⚠️ **Important**: Replace `your-username` with your GitHub username
+**🔗 [Access the application here](https://github.com/jfceolin/NwMusicTrack/)**
 
 ## 📁 Project Structure
 
@@ -69,7 +67,7 @@ nw music/
 1. **Fork** this repository
 2. **Enable** GitHub Pages in repository settings
 3. **Select** the `main` branch as source
-4. **Access** `https://your-username.github.io/nw-music/`
+4. **Access** `https://github.com/jfceolin/NwMusicTrack`
 
 ## 📚 Documentation
 
@@ -83,15 +81,8 @@ nw music/
 For local development, use a web server:
 
 ```bash
-# Python
-python -m http.server 8000
-
 # Node.js
 npx http-server
-
-# PHP
-php -S localhost:8000
-```
 
 ## 🧪 Testing
 
@@ -114,10 +105,3 @@ This project is open source and available under the [MIT License](LICENSE).
 3. Make your changes
 4. Test thoroughly
 5. Submit a pull request
-
-## 📞 Support
-
-For questions or issues:
-1. Check the documentation in the `docs/` folder
-2. Review the GitHub repository issues
-3. Contact the project maintainer

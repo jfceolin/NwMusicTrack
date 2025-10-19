@@ -68,6 +68,6 @@ For questions about documentation:
 
 ---
 
-**Last Updated**: January 2024  
-**Version**: 2.0  
+**Last Updated**: October 2025  
+**Version**: 1.0  
 **Structure**: Organized documentation system
