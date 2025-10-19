@@ -4,7 +4,7 @@ A web application to track progress in collecting songs and instruments from the
 
 ## 🌐 Online Access
 
-**🔗 [Access the application here](https://github.com/jfceolin/NwMusicTrack/)**
+**🔗 [Access the application here](https://new-world-music-tracker.vercel.app/)**
 
 ## 📁 Project Structure
 
@@ -60,14 +60,15 @@ nw music/
 - **Responsiveness**: Mobile-first design
 - **Error Handling**: Validations and fallbacks
 - **Clean Code**: Comments, organized structure
-- **GitHub Pages**: Optimized configuration with .nojekyll
+- **Vercel**: Optimized configuration with vercel.json
 
-## 📦 Deploy to GitHub Pages
+## 📦 Deploy to Vercel
 
 1. **Fork** this repository
-2. **Enable** GitHub Pages in repository settings
-3. **Select** the `main` branch as source
-4. **Access** `https://github.com/jfceolin/NwMusicTrack`
+2. **Connect** to Vercel (vercel.com)
+3. **Import** the repository
+4. **Deploy** automatically
+5. **Access** your custom domain or Vercel URL
 
 ## 📚 Documentation
 

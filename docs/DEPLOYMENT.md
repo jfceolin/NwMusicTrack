@@ -1,6 +1,6 @@
 # 🚀 Deployment Guide - New World Music Tracker
 
-## 📋 GitHub Pages Setup
+## 📋 Vercel Deployment Setup
 
 ### 1. Create Repository on GitHub
 
@@ -36,20 +36,20 @@ git remote add origin https://github.com/YOUR-USERNAME/nw-music.git
 git push -u origin main
 ```
 
-### 3. Enable GitHub Pages
+### 3. Deploy to Vercel
 
-1. **Access** the repository on GitHub
-2. **Click** the "Settings" tab
-3. **Scroll** to "Pages" (left side)
-4. **Source**: "Deploy from a branch"
-5. **Branch**: "main"
-6. **Folder**: "/ (root)"
-7. **Click** "Save"
+1. **Access** [Vercel](https://vercel.com)
+2. **Sign in** with GitHub account
+3. **Click** "New Project"
+4. **Import** your repository
+5. **Configure** project settings (optional)
+6. **Click** "Deploy"
 
 ### 4. Access the Site
 
-- **URL**: `https://YOUR-USERNAME.github.io/nw-music/`
-- **Time**: 5-10 minutes to become available
+- **URL**: `https://your-project-name.vercel.app/`
+- **Time**: 1-2 minutes to become available
+- **Custom Domain**: Can be configured in Vercel dashboard
 
 ## 🔧 Important Files
 
@@ -59,15 +59,12 @@ git push -u origin main
 - `style.css` - Styles
 - `data/songs.json` - Song data
 - `images/` - Images folder
-- `.nojekyll` - Disables Jekyll
-- `_config.yml` - Configuration
+- `vercel.json` - Vercel configuration
 
-### ❌ Files that should NOT go to GitHub Pages:
-- `server.js` - Local server
-- `package.json` - Node.js dependencies
-- `src/` - Development folder
-- `assets/` - Development folder
-- `docs/` - Documentation folder
+### ❌ Files that should NOT go to Vercel:
+- `server.js` - Local development server
+- `docs/` - Documentation folder (optional)
+- `.git/` - Git repository data
 
 ## 🐛 Troubleshooting
 

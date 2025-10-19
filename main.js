@@ -128,6 +128,7 @@ function detectLocationLanguage() {
 
 async function loadTranslations() {
   try {
+    console.log('Loading translations for language:', currentLanguage);
     const response = await fetch(`data/translations/${currentLanguage}.json`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -179,11 +180,13 @@ function updateUITexts() {
 async function loadSongs() {
   try {
     console.log('Loading songs...');
+    console.log('Current language:', currentLanguage);
     
     // Load translations first
     await loadTranslations();
     
     // Load songs data
+    console.log('Loading songs data...');
     const response = await fetch('data/songs.json');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -494,45 +497,7 @@ function updateActiveFlag() {
   }
 }
 
-function showLanguageDetectionNotification() {
-  // Verificar se é a primeira vez que o usuário acessa (sem idioma salvo)
-  const hasStoredLanguage = localStorage.getItem('selectedLanguage');
-  
-  if (!hasStoredLanguage) {
-    const detectedLang = detectBrowserLanguage();
-    const langNames = {
-      'pt': 'Português',
-      'en': 'English', 
-      'es': 'Español'
-    };
-    
-    // Mostrar notificação discreta
-    const notification = document.createElement('div');
-    notification.className = 'language-notification';
-    notification.innerHTML = `
-      <div class="notification-content">
-        <span>🌍 Idioma detectado: ${langNames[detectedLang]}</span>
-        <button class="notification-close">&times;</button>
-      </div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Auto-remover após 5 segundos
-    setTimeout(() => {
-      if (notification.parentNode) {
-        notification.parentNode.removeChild(notification);
-      }
-    }, 5000);
-    
-    // Remover ao clicar no X
-    notification.querySelector('.notification-close').addEventListener('click', () => {
-      if (notification.parentNode) {
-        notification.parentNode.removeChild(notification);
-      }
-    });
-  }
-}
+// Language detection is now silent - no notification shown
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
@@ -558,7 +523,4 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Set active flag on load
   updateActiveFlag();
-  
-  // Show language detection notification if first visit
-  showLanguageDetectionNotification();
 });
