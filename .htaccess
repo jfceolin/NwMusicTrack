@@ -1,0 +1,9 @@
+# Configurações para servidor web
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type"
+
+# Permitir arquivos JSON
+<Files "*.json">
+    Header set Content-Type "application/json"
+</Files>

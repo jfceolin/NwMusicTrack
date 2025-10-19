@@ -1,0 +1,41 @@
+# Dependências
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Arquivos de build (se houver)
+dist/
+build/
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Arquivos específicos do projeto
+# (adicione aqui arquivos específicos que não devem ser versionados)
+
+# Documentação antiga (mantida para referência)
+# Os arquivos de documentação foram reorganizados na pasta docs/

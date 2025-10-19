@@ -1,0 +1,21 @@
+# Configuração para GitHub Pages
+title: New World Music Tracker
+description: Aplicativo para acompanhar músicas e instrumentos do New World
+author: jfceolin
+baseurl: "" # Deixe vazio se o repositório for username.github.io
+url: "" # Deixe vazio para usar o domínio padrão do GitHub Pages
+
+# Configurações do Jekyll (desabilitado)
+plugins: []
+markdown: kramdown
+highlighter: rouge
+
+# Configurações de build
+exclude:
+  - README.md
+  - INSTRUÇÕES.md
+  - server.js
+  - package.json
+  - docs/
+  - src/
+  - assets/

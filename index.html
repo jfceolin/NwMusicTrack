@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aplicativo para acompanhar o progresso na coleta de músicas e instrumentos do jogo New World">
+  <meta name="keywords" content="New World, música, instrumentos, tracker, jogo, progresso">
+  <meta name="author" content="jfceolin">
+  <meta name="robots" content="index, follow">
+  <title>New World Music Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/score.png">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="language-selector">
+        <button class="flag-btn" data-lang="pt" id="flag-pt">
+          <img src="images/pt-br.png" alt="Português" class="flag-icon">
+        </button>
+        <button class="flag-btn" data-lang="en" id="flag-en">
+          <img src="images/eng.png" alt="English" class="flag-icon">
+        </button>
+        <button class="flag-btn" data-lang="es" id="flag-es">
+          <img src="images/es.png" alt="Español" class="flag-icon">
+        </button>
+      </div>
+      <h1 id="pageTitle">🎶 New World Music Tracker</h1>
+      <p id="pageSubtitle">Mark the parts you have collected. An instrument only counts if all parts are collected.</p>
+      <div class="progress-summary">
+        <div class="progress-item">
+          <span class="progress-label" id="partsLabel">Parts Collected:</span>
+          <span id="partsCount">0/0</span>
+        </div>
+        <div class="progress-item">
+          <span class="progress-label" id="instrumentsLabel">Complete Instruments:</span>
+          <span id="instrumentsCount">0</span>
+        </div>
+        <div class="progress-item">
+          <span class="progress-label" id="songsLabel">Complete Songs:</span>
+          <span id="songsCount">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="songsContainer" class="songs-container"></main>
+
+  <footer>
+    <div class="footer-content">
+      <button id="resetBtn" class="btn btn-secondary">Reset Progress</button>
+      <button id="exportBtn" class="btn btn-primary">Export Progress</button>
+      <button id="importBtn" class="btn btn-primary">Import Progress</button>
+      <input type="file" id="importFile" accept=".json" style="display: none;">
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
