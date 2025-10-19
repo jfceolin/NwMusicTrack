@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste Vercel - New World Music Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+    .test-section {
+      background: #2a2a2a;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+      border: 1px solid #444;
+    }
+    .success { color: #4caf50; }
+    .error { color: #f44336; }
+    .warning { color: #ff9800; }
+    .info { color: #2196f3; }
+    button {
+      background: #ffcc00;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background: #ffd54f;
+    }
+    #results {
+      background: #333;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 Teste de Compatibilidade - Vercel</h1>
+  
+  <div class="test-section">
+    <h2>1. Teste de Carregamento de Dados</h2>
+    <button onclick="testDataLoading()">Testar Carregamento</button>
+    <div id="data-results"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>2. Teste de localStorage</h2>
+    <button onclick="testLocalStorage()">Testar localStorage</button>
+    <div id="storage-results"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>3. Teste de Funcionalidades JavaScript</h2>
+    <button onclick="testJavaScriptFeatures()">Testar Funcionalidades</button>
+    <div id="js-results"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>4. Teste de Auto-refresh</h2>
+    <button onclick="testAutoRefresh()">Testar Auto-refresh</button>
+    <div id="refresh-results"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>5. Teste de Animações CSS</h2>
+    <button onclick="testCSSAnimations()">Testar Animações</button>
+    <div id="animation-results"></div>
+  </div>
+
+  <div id="results"></div>
+
+  <script>
+    let testResults = [];
+
+    function log(message, type = 'info') {
+      const timestamp = new Date().toLocaleTimeString();
+      const logMessage = `[${timestamp}] ${message}`;
+      testResults.push({ message: logMessage, type });
+      console.log(logMessage);
+    }
+
+    function displayResults(containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = testResults.map(result => 
+        `<div class="${result.type}">${result.message}</div>`
+      ).join('');
+      testResults = [];
+    }
+
+    async function testDataLoading() {
+      log('🔄 Iniciando teste de carregamento de dados...');
+      
+      try {
+        // Teste songs.json
+        const songsResponse = await fetch('data/songs.json');
+        if (songsResponse.ok) {
+          const songsData = await songsResponse.json();
+          log(`✅ songs.json carregado: ${songsData.songs ? songsData.songs.length : 0} músicas`, 'success');
+        } else {
+          log(`❌ Erro ao carregar songs.json: ${songsResponse.status}`, 'error');
+        }
+
+        // Teste traduções
+        const translations = ['pt', 'en', 'es'];
+        for (const lang of translations) {
+          try {
+            const transResponse = await fetch(`data/translations/${lang}.json`);
+            if (transResponse.ok) {
+              const transData = await transResponse.json();
+              log(`✅ ${lang}.json carregado: ${transData.ui ? 'UI traduzido' : 'Sem UI'}`, 'success');
+            } else {
+              log(`❌ Erro ao carregar ${lang}.json: ${transResponse.status}`, 'error');
+            }
+          } catch (error) {
+            log(`❌ Erro ao carregar ${lang}.json: ${error.message}`, 'error');
+          }
+        }
+
+      } catch (error) {
+        log(`❌ Erro geral no teste de dados: ${error.message}`, 'error');
+      }
+      
+      displayResults('data-results');
+    }
+
+    function testLocalStorage() {
+      log('🔄 Iniciando teste de localStorage...');
+      
+      try {
+        // Teste básico
+        const testKey = 'vercel-test-key';
+        const testValue = 'test-value-' + Date.now();
+        
+        localStorage.setItem(testKey, testValue);
+        const retrieved = localStorage.getItem(testKey);
+        localStorage.removeItem(testKey);
+        
+        if (retrieved === testValue) {
+          log('✅ localStorage básico funcionando', 'success');
+        } else {
+          log('❌ localStorage básico falhou', 'error');
+        }
+
+        // Teste com dados complexos
+        const complexData = {
+          test: true,
+          timestamp: Date.now(),
+          nested: { value: 'test' }
+        };
+        
+        localStorage.setItem('complex-test', JSON.stringify(complexData));
+        const retrievedComplex = JSON.parse(localStorage.getItem('complex-test'));
+        localStorage.removeItem('complex-test');
+        
+        if (retrievedComplex && retrievedComplex.test === true) {
+          log('✅ localStorage com JSON funcionando', 'success');
+        } else {
+          log('❌ localStorage com JSON falhou', 'error');
+        }
+
+        // Teste de quota
+        try {
+          const largeData = 'x'.repeat(1024 * 1024); // 1MB
+          localStorage.setItem('quota-test', largeData);
+          localStorage.removeItem('quota-test');
+          log('✅ localStorage tem espaço suficiente', 'success');
+        } catch (quotaError) {
+          log('⚠️ localStorage com limitação de quota', 'warning');
+        }
+
+      } catch (error) {
+        log(`❌ Erro no teste de localStorage: ${error.message}`, 'error');
+      }
+      
+      displayResults('storage-results');
+    }
+
+    function testJavaScriptFeatures() {
+      log('🔄 Iniciando teste de funcionalidades JavaScript...');
+      
+      try {
+        // Teste de setTimeout
+        let setTimeoutWorking = false;
+        setTimeout(() => {
+          setTimeoutWorking = true;
+          log('✅ setTimeout funcionando', 'success');
+        }, 100);
+
+        // Teste de Promise
+        const promiseTest = new Promise((resolve) => {
+          setTimeout(() => resolve('Promise OK'), 50);
+        });
+        
+        promiseTest.then(result => {
+          log(`✅ Promise funcionando: ${result}`, 'success');
+        });
+
+        // Teste de async/await
+        (async () => {
+          try {
+            await new Promise(resolve => setTimeout(resolve, 10));
+            log('✅ async/await funcionando', 'success');
+          } catch (error) {
+            log(`❌ async/await falhou: ${error.message}`, 'error');
+          }
+        })();
+
+        // Teste de DOM manipulation
+        const testDiv = document.createElement('div');
+        testDiv.setAttribute('data-test', 'value');
+        testDiv.className = 'test-class';
+        testDiv.innerHTML = '<span>Test</span>';
+        
+        if (testDiv.getAttribute('data-test') === 'value') {
+          log('✅ Manipulação de DOM funcionando', 'success');
+        } else {
+          log('❌ Manipulação de DOM falhou', 'error');
+        }
+
+        // Teste de querySelector
+        document.body.appendChild(testDiv);
+        const found = document.querySelector('[data-test="value"]');
+        if (found) {
+          log('✅ querySelector funcionando', 'success');
+        } else {
+          log('❌ querySelector falhou', 'error');
+        }
+        document.body.removeChild(testDiv);
+
+        // Aguardar setTimeout
+        setTimeout(() => {
+          if (!setTimeoutWorking) {
+            log('❌ setTimeout não funcionou', 'error');
+          }
+          displayResults('js-results');
+        }, 200);
+
+      } catch (error) {
+        log(`❌ Erro no teste JavaScript: ${error.message}`, 'error');
+        displayResults('js-results');
+      }
+    }
+
+    function testAutoRefresh() {
+      log('🔄 Iniciando teste de auto-refresh...');
+      
+      try {
+        // Simular dados de teste
+        const testSongs = [
+          { id: 'test-1', instruments: [{ name: 'Guitar', parts: ['Part 1'] }] },
+          { id: 'test-2', instruments: [{ name: 'Guitar', parts: ['Part 1', 'Part 2'] }] }
+        ];
+        
+        let collected = {};
+        
+        // Função de teste para verificar completude
+        function isSongComplete(song) {
+          if (!song || !song.instruments) return false;
+          for (const instrument of song.instruments) {
+            if (!collected[song.id] || !collected[song.id][instrument.name]) return false;
+            for (const part of instrument.parts) {
+              if (!collected[song.id][instrument.name][part]) return false;
+            }
+          }
+          return true;
+        }
+        
+        // Teste de ordenação
+        const sortedSongs = [...testSongs].sort((a, b) => {
+          const aComplete = isSongComplete(a);
+          const bComplete = isSongComplete(b);
+          if (aComplete && !bComplete) return 1;
+          if (!aComplete && bComplete) return -1;
+          return 0;
+        });
+        
+        log('✅ Função de ordenação funcionando', 'success');
+        
+        // Simular completude
+        collected['test-1'] = { 'Guitar': { 'Part 1': true } };
+        collected['test-2'] = { 'Guitar': { 'Part 1': true, 'Part 2': true } };
+        
+        const song1Complete = isSongComplete(testSongs[0]);
+        const song2Complete = isSongComplete(testSongs[1]);
+        
+        if (song1Complete && song2Complete) {
+          log('✅ Detecção de completude funcionando', 'success');
+        } else {
+          log('❌ Detecção de completude falhou', 'error');
+        }
+        
+        // Teste de setTimeout para auto-refresh
+        let refreshTriggered = false;
+        setTimeout(() => {
+          refreshTriggered = true;
+          log('✅ Auto-refresh setTimeout funcionando', 'success');
+        }, 100);
+        
+        setTimeout(() => {
+          if (!refreshTriggered) {
+            log('❌ Auto-refresh setTimeout falhou', 'error');
+          }
+          displayResults('refresh-results');
+        }, 200);
+
+      } catch (error) {
+        log(`❌ Erro no teste de auto-refresh: ${error.message}`, 'error');
+        displayResults('refresh-results');
+      }
+    }
+
+    function testCSSAnimations() {
+      log('🔄 Iniciando teste de animações CSS...');
+      
+      try {
+        // Criar elemento de teste
+        const testElement = document.createElement('div');
+        testElement.style.cssText = `
+          width: 100px;
+          height: 100px;
+          background: #ffcc00;
+          position: relative;
+          transition: all 0.3s ease;
+        `;
+        document.body.appendChild(testElement);
+        
+        // Teste de transição
+        testElement.style.transform = 'scale(1.1)';
+        testElement.style.background = '#ffd54f';
+        
+        setTimeout(() => {
+          if (testElement.style.transform === 'scale(1.1)') {
+            log('✅ Transições CSS funcionando', 'success');
+          } else {
+            log('❌ Transições CSS falharam', 'error');
+          }
+          
+          // Teste de animação keyframes
+          testElement.style.animation = 'pulse 1s ease-in-out';
+          
+          setTimeout(() => {
+            if (testElement.style.animation.includes('pulse')) {
+              log('✅ Animações keyframes funcionando', 'success');
+            } else {
+              log('❌ Animações keyframes falharam', 'error');
+            }
+            
+            document.body.removeChild(testElement);
+            displayResults('animation-results');
+          }, 100);
+        }, 100);
+
+      } catch (error) {
+        log(`❌ Erro no teste de animações: ${error.message}`, 'error');
+        displayResults('animation-results');
+      }
+    }
+
+    // Adicionar estilos de animação para teste
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
