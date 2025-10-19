@@ -203,8 +203,59 @@ h1 {
   padding: 1.5rem;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 204, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.5s ease;
   margin-bottom: 2rem;
+  transform: translateY(0);
+}
+
+.song-complete {
+  background: linear-gradient(145deg, #1a2e1a 0%, #2a3a2a 100%);
+  border: 1px solid rgba(129, 199, 132, 0.4);
+  box-shadow: 0 8px 25px rgba(129, 199, 132, 0.2);
+  opacity: 0.8;
+  animation: completeGlow 1s ease-in-out;
+}
+
+@keyframes completeGlow {
+  0% {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 12px 35px rgba(129, 199, 132, 0.6);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 8px 25px rgba(129, 199, 132, 0.2);
+    transform: scale(1);
+  }
+}
+
+.song-just-completed {
+  animation: justCompleted 1.5s ease-in-out;
+}
+
+@keyframes justCompleted {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  25% {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(129, 199, 132, 0.8);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 20px 50px rgba(129, 199, 132, 1);
+  }
+  75% {
+    transform: scale(1.01);
+    box-shadow: 0 12px 35px rgba(129, 199, 132, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(129, 199, 132, 0.2);
+  }
 }
 
 
@@ -231,6 +282,37 @@ h1 {
   font-size: 1.6rem;
   margin: 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.complete-indicator {
+  background: linear-gradient(45deg, #81c784, #4caf50);
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(129, 199, 132, 0.4);
+  margin-left: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(129, 199, 132, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(129, 199, 132, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(129, 199, 132, 0.4);
+  }
 }
 
 .instruments {

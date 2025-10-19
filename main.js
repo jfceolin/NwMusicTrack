@@ -225,6 +225,38 @@ function getPartName(partName) {
   return translations.parts && translations.parts[partName] ? translations.parts[partName] : partName;
 }
 
+// Função para verificar se uma música está completa
+function isSongComplete(song) {
+  if (!song || !song.instruments || song.instruments.length === 0) {
+    return false;
+  }
+
+  // Verificar se todos os instrumentos da música estão completos
+  for (const instrument of song.instruments) {
+    if (!isInstrumentComplete(song.id, instrument)) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+// Função para verificar se um instrumento está completo
+function isInstrumentComplete(songId, instrument) {
+  if (!instrument || !instrument.parts || instrument.parts.length === 0) {
+    return false;
+  }
+
+  // Verificar se todas as partes do instrumento foram coletadas
+  for (const part of instrument.parts) {
+    if (!collected[songId] || !collected[songId][instrument.name] || !collected[songId][instrument.name][part]) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
 function renderSongs() {
   const container = document.getElementById('songsContainer');
   if (!container) {
@@ -234,13 +266,29 @@ function renderSongs() {
 
   container.innerHTML = '';
 
-  songs.forEach(song => {
+  // Ordenar músicas: incompletas primeiro, completas no final
+  const sortedSongs = [...songs].sort((a, b) => {
+    const aComplete = isSongComplete(a);
+    const bComplete = isSongComplete(b);
+    
+    // Se uma está completa e outra não, a incompleta vem primeiro
+    if (aComplete && !bComplete) return 1;
+    if (!aComplete && bComplete) return -1;
+    
+    // Se ambas têm o mesmo status, manter ordem original
+    return 0;
+  });
+
+  sortedSongs.forEach(song => {
     const songDiv = document.createElement('div');
-    songDiv.className = 'song';
+    const isComplete = isSongComplete(song);
+    songDiv.className = `song ${isComplete ? 'song-complete' : ''}`;
+    songDiv.setAttribute('data-song-id', song.id);
     songDiv.innerHTML = `
       <div class="song-header">
         ${song.image ? `<img src="images/${song.image}" alt="${getSongName(song.id)}" class="song-icon">` : ''}
         <h3>${getSongName(song.id)}</h3>
+        ${isComplete ? '<span class="complete-indicator">✓</span>' : ''}
       </div>
       <div class="instruments">
         ${song.instruments.map(instrument => `
@@ -299,6 +347,31 @@ function handlePartToggle(event) {
   try {
     localStorage.setItem('collectedData', JSON.stringify(collected));
     updateProgress();
+    
+    // Auto-refresh: reorganizar músicas automaticamente
+    // Verificar se a música foi completada para aplicar animação especial
+    const song = songs.find(s => s.id === songId);
+    const wasComplete = isSongComplete(song);
+    
+    // Pequeno delay para permitir que a animação visual seja percebida
+    setTimeout(() => {
+      const isNowComplete = isSongComplete(song);
+      
+      // Se a música acabou de ser completada, aplicar animação especial
+      if (!wasComplete && isNowComplete) {
+        // Adicionar classe temporária para animação de completude
+        const songElement = document.querySelector(`[data-song-id="${songId}"]`);
+        if (songElement) {
+          songElement.classList.add('song-just-completed');
+          setTimeout(() => {
+            songElement.classList.remove('song-just-completed');
+          }, 1000);
+        }
+      }
+      
+      renderSongs();
+    }, 300);
+    
   } catch (error) {
     console.error('Error saving to localStorage:', error);
   }
