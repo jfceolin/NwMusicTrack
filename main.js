@@ -419,6 +419,39 @@ function updateProgress() {
   document.getElementById('songsCount').textContent = completeSongs;
 }
 
+// Função para fazer scroll até as músicas completas
+function scrollToCompleteSongs() {
+  const completeSongs = document.querySelectorAll('.song-complete');
+  if (completeSongs.length > 0) {
+    // Scroll suave até a primeira música completa
+    completeSongs[0].scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start' 
+    });
+  } else {
+    // Se não há músicas completas, mostrar mensagem
+    alert(translations.ui.noCompleteSongs || 'Nenhuma música completa encontrada.');
+  }
+}
+
+// Função para voltar ao topo
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Função para controlar a visibilidade do botão de voltar ao topo
+function toggleBackToTopButton() {
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  if (window.scrollY > 300) {
+    backToTopBtn.classList.add('show');
+  } else {
+    backToTopBtn.classList.remove('show');
+  }
+}
+
 function resetProgress() {
   if (confirm(translations.ui.resetConfirm)) {
     try {
@@ -584,6 +617,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('exportBtn').addEventListener('click', exportProgress);
   document.getElementById('importBtn').addEventListener('click', importProgress);
   document.getElementById('importFile').addEventListener('change', handleFileImport);
+  
+  // Event listener para scroll até músicas completas
+  document.getElementById('songsCount').addEventListener('click', scrollToCompleteSongs);
+  
+  // Event listener para botão de voltar ao topo
+  document.getElementById('backToTopBtn').addEventListener('click', scrollToTop);
+  
+  // Event listener para controlar visibilidade do botão de voltar ao topo
+  window.addEventListener('scroll', toggleBackToTopButton);
   
   // Language selector - flag buttons
   const flagButtons = document.querySelectorAll('.flag-btn');

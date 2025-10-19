@@ -15,7 +15,8 @@
     "exportSuccess": "¡Progreso exportado exitosamente!",
     "importSuccess": "¡Progreso importado exitosamente!",
     "importError": "Error al importar archivo. Verifica que sea un archivo de progreso válido.",
-    "importConfirm": "Esto reemplazará todo el progreso actual. ¿Deseas continuar?"
+    "importConfirm": "Esto reemplazará todo el progreso actual. ¿Deseas continuar?",
+    "noCompleteSongs": "No se encontraron canciones completas."
   },
   "instruments": {
     "Guitar": "Guitarra",

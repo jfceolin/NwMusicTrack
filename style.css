@@ -188,6 +188,20 @@ h1 {
   color: #fff;
 }
 
+.clickable-counter {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.clickable-counter:hover {
+  background: rgba(255, 204, 0, 0.2);
+  transform: scale(1.05);
+  color: #ffcc00 !important;
+}
+
 .songs-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -448,6 +462,42 @@ h1 {
   color: #fff;
 }
 
+/* Botão de voltar ao topo */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #ffcc00, #ffd54f);
+  border: none;
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 204, 0, 0.6);
+  background: linear-gradient(45deg, #ffd54f, #ffcc00);
+}
+
+.back-to-top-btn:active {
+  transform: translateY(-1px);
+}
+
+.back-to-top-btn.show {
+  display: flex;
+}
+
 /* Responsividade */
 @media (max-width: 1200px) {
   .instruments-container {
@@ -507,6 +557,14 @@ h1 {
 }
 
 @media (max-width: 480px) {
+  .back-to-top-btn {
+    bottom: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+  
   .instruments-container {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 0.8rem;

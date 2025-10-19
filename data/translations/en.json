@@ -15,7 +15,8 @@
     "exportSuccess": "Progress exported successfully!",
     "importSuccess": "Progress imported successfully!",
     "importError": "Error importing file. Please check if it's a valid progress file.",
-    "importConfirm": "This will replace all current progress. Do you want to continue?"
+    "importConfirm": "This will replace all current progress. Do you want to continue?",
+    "noCompleteSongs": "No complete songs found."
   },
   "instruments": {
     "Guitar": "Guitar",
