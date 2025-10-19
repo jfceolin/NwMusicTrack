@@ -33,13 +33,13 @@ body {
 
 .flag-btn {
   background: rgba(0, 0, 0, 0.3);
-  border: 2px solid #ffcc00;
+  /* border: 2px solid #ffcc00; */
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: all 0.1s ease;
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;  
@@ -47,40 +47,29 @@ body {
   overflow: hidden;
 }
 
-.flag-btn:hover {
-  background: rgba(255, 204, 0, 0.2);
-  border-color: #ffdd44;
-  transform: scale(1.1);
-}
-
 .flag-btn.active {
   background: rgba(255, 204, 0, 0.3);
   border-color: #ffdd44;
   box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
-  transform: scale(1.15);
+  transform: scale(1);
 }
 
 .flag-icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   object-fit: cover;
   border-radius: 50%;
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
 }
 
 .flag-btn:hover .flag-icon {
-  transform: scale(1.1);
+  transform: scale(1);
 }
-
-/* Language detection is now silent - no notification styles needed */
-
 
 .flag-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.3);
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .language-selector {
     top: 0.5rem;
@@ -88,44 +77,44 @@ body {
   }
   
   .flag-btn {
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
   }
   
   .flag-icon {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
   }
   
   .instruments {
-    gap: 1rem;
+    gap: 0.8rem;
   }
   
   .instrument {
-    min-width: 180px;
-    max-width: 220px;
+    min-width: 120px;
+    max-width: 160px;
   }
 }
 
 @media (max-width: 480px) {
   .language-selector {
-    top: 0.3rem;
-    right: 0.3rem;
+    top: 0.2rem;
+    right: 0.2rem;
   }
   
   .flag-btn {
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
   }
   
   .flag-icon {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
   }
   
   .instruments {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.8rem;
   }
   
   .instrument {
@@ -145,16 +134,15 @@ body {
 
 h1 {
   color: #ffcc00;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .header-content p {
   color: #b0b0b0;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  max-width: 600px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -164,7 +152,7 @@ h1 {
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .progress-item {
@@ -178,48 +166,46 @@ h1 {
 .progress-label {
   display: block;
   font-size: 0.9rem;
-  color: #ffcc00;
-  margin-bottom: 0.3rem;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
 }
 
 .progress-item span:last-child {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #fff;
 }
 
 .clickable-counter {
   cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0.2rem 0.4rem;
+  transition: all 0.1s ease;
+  padding: 0.1rem 0.2rem;
   border-radius: 4px;
   display: inline-block;
 }
 
 .clickable-counter:hover {
   background: rgba(255, 204, 0, 0.2);
-  transform: scale(1.05);
-  color: #ffcc00 !important;
+  transform: scale(1);
+  color: #ffffff !important;
 }
 
 .songs-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1.2rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .song {
   background: linear-gradient(145deg, #1c1c1c 0%, #2a2a2a 100%);
-  border-radius: 15px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 0.7rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 204, 0, 0.2);
   transition: all 0.5s ease;
-  margin-bottom: 2rem;
-  transform: translateY(0);
 }
 
 .song-complete {
@@ -276,16 +262,16 @@ h1 {
 .song-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 3px solid rgba(255, 204, 0, 0.4);
-  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid rgba(255, 204, 0, 0.4);
+  justify-content: flex-start;
 }
 
 .song-icon {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
   transition: transform 0.3s ease;
@@ -293,7 +279,7 @@ h1 {
 
 .song h3 {
   color: #ffd54f;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   margin: 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -302,15 +288,15 @@ h1 {
   background: linear-gradient(45deg, #81c784, #4caf50);
   color: white;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: bold;
   box-shadow: 0 2px 8px rgba(129, 199, 132, 0.4);
-  margin-left: 0.5rem;
+  margin-left: 0.4rem;
   animation: pulse 2s infinite;
 }
 
@@ -332,19 +318,19 @@ h1 {
 .instruments {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin-top: 0.7rem;
   justify-content: flex-start;
 }
 
 .instrument {
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  padding: 1rem;
+  border-radius: 8px;
+  padding: 0.7rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
-  min-width: 200px;
-  max-width: 250px;
+  min-width: 140px;
+  max-width: 180px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -359,15 +345,15 @@ h1 {
 .instrument-header {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.8rem;
-  padding-bottom: 0.6rem;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.4rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .instrument-icon {
-  width: 35px;
-  height: 35px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
@@ -379,7 +365,7 @@ h1 {
 .instrument-name {
   color: #80deea;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.85rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -390,26 +376,26 @@ h1 {
 .parts {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.3rem;
   flex: 1;
-  margin-top: 0.5rem;
+  margin-top: 0.3rem;
 }
 
 .part-checkbox {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.6rem;
+  gap: 0.4rem;
+  padding: 0.3rem 0.4rem;
   background: rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
+  border-radius: 5px;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
 }
 
 .part-checkbox input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   accent-color: #ffcc00;
   cursor: pointer;
   transform: scale(1.05);
@@ -417,7 +403,7 @@ h1 {
 
 .part-checkbox span {
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #e0e0e0;
   flex: 1;
   font-weight: 500;
@@ -516,12 +502,12 @@ h1 {
   }
   
   .songs-container {
-    padding: 1rem;
+    padding: 0.8rem;
   }
   
   .instruments-container {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.8rem;
   }
   
   h1 {
@@ -533,26 +519,26 @@ h1 {
   }
   
   .song h3 {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
   }
   
   .song-icon {
-    width: 35px;
-    height: 35px;
+    width: 24px;
+    height: 24px;
   }
   
   .instrument {
-    min-height: 130px;
-    padding: 0.7rem;
+    min-height: 100px;
+    padding: 0.5rem;
   }
   
   .instrument-icon {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
   }
   
   .instrument-name {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -566,41 +552,41 @@ h1 {
   }
   
   .instruments-container {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.6rem;
   }
   
   .instrument {
-    min-height: 110px;
-    padding: 0.6rem;
+    min-height: 90px;
+    padding: 0.5rem;
   }
   
   .instrument-header {
+    gap: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .instrument-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .instrument-name {
+    font-size: 0.75rem;
+  }
+  
+  .song-header {
     gap: 0.5rem;
     margin-bottom: 0.7rem;
   }
   
-  .instrument-icon {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .instrument-name {
-    font-size: 0.85rem;
-  }
-  
-  .song-header {
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-  }
-  
   .song h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   
   .song-icon {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
   
   /* Language notification styles removed - detection is now silent */
@@ -612,17 +598,17 @@ h1 {
   }
   
   .part {
-    padding: 0.5rem;
-    gap: 0.5rem;
+    padding: 0.3rem;
+    gap: 0.3rem;
   }
   
   .part label {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
   }
   
   .part input[type="checkbox"] {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
   }
 }
   
