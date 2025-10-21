@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug Simples</title>
+</head>
+<body>
+    <h1>Debug - New World Music Tracker</h1>
+    <div id="status">Carregando...</div>
+    <div id="songsContainer"></div>
+    
+    <script>
+        console.log('🔍 Iniciando debug...');
+        
+        async function testLoad() {
+            try {
+                // Teste 1: Verificar se o container existe
+                const container = document.getElementById('songsContainer');
+                console.log('📦 Container:', container);
+                
+                // Teste 2: Carregar traduções
+                console.log('🌐 Carregando traduções...');
+                const transResponse = await fetch('data/translations/pt.json');
+                console.log('📡 Trans status:', transResponse.status);
+                const translations = await transResponse.json();
+                console.log('✅ Traduções:', translations);
+                
+                // Teste 3: Carregar músicas
+                console.log('🎵 Carregando músicas...');
+                const songsResponse = await fetch('data/songs.json');
+                console.log('📡 Songs status:', songsResponse.status);
+                const data = await songsResponse.json();
+                console.log('✅ Dados:', data);
+                
+                // Teste 4: Renderizar
+                if (data.songs && data.songs.length > 0) {
+                    container.innerHTML = `<h2>✅ ${data.songs.length} músicas carregadas!</h2>`;
+                    data.songs.slice(0, 3).forEach(song => {
+                        container.innerHTML += `<p>🎵 ${song.id}</p>`;
+                    });
+                    document.getElementById('status').textContent = '✅ Sucesso!';
+                } else {
+                    container.innerHTML = '<h2>❌ Nenhuma música encontrada</h2>';
+                    document.getElementById('status').textContent = '❌ Falha!';
+                }
+                
+            } catch (error) {
+                console.error('❌ Erro:', error);
+                document.getElementById('status').textContent = `❌ Erro: ${error.message}`;
+            }
+        }
+        
+        testLoad();
+    </script>
+</body>
+</html>

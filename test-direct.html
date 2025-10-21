@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Direto - New World Music Tracker</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo-container">
+                    <img src="images/nwlogo.svg" alt="New World Logo" class="header-logo">
+                </div>
+                <h1 id="pageTitle">New World Music Tracker</h1>
+                <div class="language-selector">
+                    <button class="flag-btn" data-lang="pt" id="flag-pt">
+                        <img src="images/pt-br.png" alt="Português" class="flag-icon">
+                    </button>
+                </div>
+            </div>
+            <p id="pageSubtitle">Mark the parts you have collected. An instrument only counts if all parts are collected.</p>
+            <div class="progress-summary">
+                <div class="progress-item">
+                    <span class="progress-label" id="partsLabel">Parts Collected:</span>
+                    <span id="partsCount">0/0</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label" id="instrumentsLabel">Complete Instruments:</span>
+                    <span id="instrumentsCount">0/0</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label" id="songsLabel">Complete Songs:</span>
+                    <span id="songsCount" class="clickable-counter">0/0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="songsContainer" class="songs-container"></main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <p>&copy; 2024 New World Music Tracker. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        console.log('🔍 Iniciando teste direto...');
+        
+        // Simular as variáveis globais
+        let songs = [];
+        let currentLanguage = 'pt';
+        let translations = {};
+        
+        // Função para carregar traduções
+        async function loadTranslations() {
+            try {
+                console.log('🌐 Carregando traduções...');
+                const response = await fetch('data/translations/pt.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                translations = data;
+                console.log('✅ Traduções carregadas:', translations);
+            } catch (error) {
+                console.error('❌ Erro ao carregar traduções:', error);
+            }
+        }
+        
+        // Função para carregar músicas
+        async function loadSongs() {
+            try {
+                console.log('🎵 Carregando músicas...');
+                await loadTranslations();
+                
+                const response = await fetch('data/songs.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
+                if (!data || !Array.isArray(data.songs)) {
+                    throw new Error('Invalid songs data structure');
+                }
+                
+                songs = data.songs;
+                console.log('✅ Músicas carregadas:', songs.length);
+                
+                renderSongs();
+            } catch (error) {
+                console.error('❌ Erro ao carregar músicas:', error);
+            }
+        }
+        
+        // Função para renderizar músicas
+        function renderSongs() {
+            const container = document.getElementById('songsContainer');
+            if (!container) {
+                console.error('❌ Container não encontrado');
+                return;
+            }
+            
+            console.log('🎨 Renderizando músicas:', songs.length);
+            container.innerHTML = '';
+            
+            songs.forEach(song => {
+                const songDiv = document.createElement('div');
+                songDiv.className = 'song';
+                songDiv.innerHTML = `
+                    <div class="song-header">
+                        <img src="images/${song.image}" alt="${song.id}" class="song-icon">
+                        <h3>${song.id}</h3>
+                    </div>
+                    <div class="instruments">
+                        ${song.instruments.map(instrument => `
+                            <div class="instrument">
+                                <div class="instrument-header">
+                                    <img src="images/${instrument.image}" alt="${instrument.name}" class="instrument-icon">
+                                    <span class="instrument-name">${instrument.name}</span>
+                                </div>
+                                <div class="parts">
+                                    ${instrument.parts.map(part => `
+                                        <div class="part-checkbox">
+                                            <input type="checkbox" id="${song.id}-${instrument.name}-${part}">
+                                            <span>${part}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(songDiv);
+            });
+            
+            console.log('✅ Músicas renderizadas!');
+        }
+        
+        // Carregar quando a página estiver pronta
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📄 DOM carregado');
+            loadSongs();
+        });
+    </script>
+</body>
+</html>

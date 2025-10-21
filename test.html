@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - New World Music Tracker</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+</head>
+<body>
+    <h1>Teste de Carregamento</h1>
+    <div id="songsContainer" class="songs-container"></div>
+    <div id="debug"></div>
+    
+    <script>
+        console.log('🔍 Iniciando teste...');
+        
+        // Teste 1: Verificar se o container existe
+        const container = document.getElementById('songsContainer');
+        console.log('📦 Container encontrado:', container);
+        
+        // Teste 2: Tentar carregar songs.json
+        fetch('data/songs.json')
+            .then(response => {
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                return response.json();
+            })
+            .then(data => {
+                console.log('📊 Dados carregados:', data);
+                console.log('🎵 Número de músicas:', data.songs ? data.songs.length : 'N/A');
+                
+                if (data.songs && data.songs.length > 0) {
+                    container.innerHTML = `<p>✅ ${data.songs.length} músicas carregadas com sucesso!</p>`;
+                    container.innerHTML += `<p>Primeira música: ${data.songs[0].id}</p>`;
+                } else {
+                    container.innerHTML = '<p>❌ Nenhuma música encontrada</p>';
+                }
+            })
+            .catch(error => {
+                console.error('❌ Erro:', error);
+                container.innerHTML = `<p>❌ Erro ao carregar: ${error.message}</p>`;
+            });
+    </script>
+</body>
+</html>

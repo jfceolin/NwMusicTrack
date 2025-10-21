@@ -214,20 +214,25 @@ function updateUITexts(): void {
 
 async function loadSongs(): Promise<void> {
   try {
-    console.log('Loading songs...');
-    console.log('Current language:', currentLanguage);
+    console.log('🎵 Loading songs...');
+    console.log('🌐 Current language:', currentLanguage);
+    console.log('📍 Current URL:', window.location.href);
     
     // Load translations first
     await loadTranslations();
-    console.log('Translations loaded:', translations);
+    console.log('✅ Translations loaded:', translations);
     
     // Load songs data
-    console.log('Loading songs data...');
+    console.log('📁 Loading songs data from: data/songs.json');
     const response = await fetch('data/songs.json');
+    console.log('📡 Response status:', response.status);
+    console.log('📡 Response ok:', response.ok);
+    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
+    console.log('📊 Data received:', data);
     
     // Validar estrutura dos dados
     if (!data || !Array.isArray(data.songs)) {
@@ -235,14 +240,14 @@ async function loadSongs(): Promise<void> {
     }
     
     songs = data.songs;
-    console.log('Songs loaded:', songs.length);
-    console.log('First song:', songs[0]);
+    console.log('🎵 Songs loaded:', songs.length);
+    console.log('🎵 First song:', songs[0]);
     
     renderSongs();
     updateProgress();
     
   } catch (error) {
-    console.error('Error loading songs:', error);
+    console.error('❌ Error loading songs:', error);
     const container = document.getElementById('songsContainer');
     if (container) {
       container.innerHTML = '<p>Erro ao carregar músicas. Por favor, tente novamente mais tarde.</p>';
@@ -297,11 +302,12 @@ function isInstrumentComplete(songId: string, instrument: { name: string; parts:
 function renderSongs(): void {
   const container = document.getElementById('songsContainer');
   if (!container) {
-    console.error('Songs container not found');
+    console.error('❌ Songs container not found');
     return;
   }
 
-  console.log('Renderizando músicas:', songs.length, 'músicas encontradas');
+  console.log('🎨 Renderizando músicas:', songs.length, 'músicas encontradas');
+  console.log('🎨 Container found:', container);
   container.innerHTML = '';
 
   // Ordenar músicas: incompletas primeiro, completas no final
