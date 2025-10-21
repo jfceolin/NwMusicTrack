@@ -43,9 +43,9 @@ nw-music/
 
 ## 🎨 Cores
 
-**Edite apenas:** `dist/main.js` (função `applyColorsToDOM`)
+**Edite apenas:** `src/styles/style.css` (bloco `:root`)
 
-Veja: [COLORS-SIMPLE.md](COLORS-SIMPLE.md)
+Todas as cores estão centralizadas no início do arquivo CSS usando variáveis CSS (CSS Custom Properties).
 
 ## 🌍 Traduções
 
@@ -83,7 +83,7 @@ Edite: `data/songs.json`
 
 - **dist/main.js** é o arquivo que o navegador executa
 - Mudanças em `src/main.ts` precisam de `npm run build`
-- Se TypeScript não compilar, edite `dist/main.js` diretamente
+- **Cores**: sempre edite `src/styles/style.css` (bloco `:root`)
 
 ## 🐛 Debug
 

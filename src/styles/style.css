@@ -1,3 +1,49 @@
+:root {
+  /* Cores principais */
+  --color-primary: #ffffff;
+  --color-secondary: #8b4513;
+  --color-accent: #f5f5f5;
+  
+  /* Cores de fundo */
+  --color-background: #000000;
+  --color-surface: #1a1a1a;
+  --color-surfaceHover: #2a2a2a;
+  
+  /* Cores de texto */
+  --color-textPrimary: #e0e0e0;
+  --color-textSecondary: #b0b0b0;
+  --color-textMuted: #808080;
+  
+  /* Cores de status */
+  --color-success: #4caf50;
+  --color-warning: #ff9800;
+  --color-error: #f44336;
+  --color-info: #2196f3;
+  
+  /* Cores específicas da aplicação */
+  --color-songComplete: #4caf50;
+  --color-songIncomplete: #666666;
+  --color-instrumentComplete: #4caf50;
+  --color-instrumentIncomplete: #666666;
+  --color-partCollected: #4caf50;
+  --color-partNotCollected: #666666;
+  
+  /* Cores de botões */
+  --color-buttonPrimary: #8b4513;
+  --color-buttonPrimaryHover: #a0522d;
+  --color-buttonSecondary: #8b4513;
+  --color-buttonSecondaryHover: #a0522d;
+  
+  /* Cores de bordas */
+  --color-border: #444444;
+  --color-borderLight: #333333;
+  --color-borderDark: #555555;
+  
+  /* Cores de sombra */
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-shadowHover: rgba(0, 0, 0, 0.5);
+}
+
 * {
   margin: 0;
   padding: 0;
