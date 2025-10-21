@@ -1,10 +1,30 @@
-let songs = [];
-let collected = {};
-let currentLanguage = '';
-let translations = {};
+import { Song, CollectedData, Translations, ExportData, SupportedLanguage, LanguageMap } from './types';
+
+// Variáveis globais
+let songs: Song[] = [];
+let collected: CollectedData = {};
+let currentLanguage: SupportedLanguage = 'pt';
+let translations: Translations = {
+  ui: {
+    title: "🎶 New World Music Tracker",
+    subtitle: "Marque as partes que você coletou. Um instrumento só conta se todas as partes forem coletadas.",
+    partsCollected: "Partes Coletadas:",
+    completeInstruments: "Instrumentos Completos:",
+    completeSongs: "Músicas Completas:",
+    resetProgress: "Resetar Progresso",
+    exportProgress: "Exportar Progresso",
+    importProgress: "Importar Progresso",
+    resetConfirm: "Tem certeza que deseja resetar todo o progresso? Esta ação não pode ser desfeita.",
+    resetSuccess: "Progresso resetado com sucesso!",
+    exportSuccess: "Progresso exportado com sucesso!",
+    importConfirm: "Tem certeza que deseja importar este arquivo? Os dados atuais serão substituídos.",
+    importSuccess: "Progresso importado com sucesso!",
+    importError: "Erro ao importar arquivo. Verifique se é um arquivo JSON válido."
+  }
+};
 
 // Função para carregar dados do localStorage com validação
-function loadFromLocalStorage() {
+function loadFromLocalStorage(): void {
   try {
     const storedData = localStorage.getItem('collectedData');
     if (storedData) {
@@ -20,8 +40,8 @@ function loadFromLocalStorage() {
   
   try {
     const storedLanguage = localStorage.getItem('selectedLanguage');
-    if (storedLanguage) {
-      currentLanguage = storedLanguage;
+    if (storedLanguage && (storedLanguage === 'pt' || storedLanguage === 'en' || storedLanguage === 'es')) {
+      currentLanguage = storedLanguage as SupportedLanguage;
     } else {
       currentLanguage = detectBrowserLanguage();
     }
@@ -35,7 +55,7 @@ function loadFromLocalStorage() {
 loadFromLocalStorage();
 
 // Função para testar localStorage
-function testLocalStorage() {
+function testLocalStorage(): boolean {
   try {
     const testKey = 'nw-music-test';
     const testValue = 'test-value';
@@ -57,12 +77,13 @@ function testLocalStorage() {
   }
 }
 
-function detectBrowserLanguage() {
+function detectBrowserLanguage(): SupportedLanguage {
   // Obter idioma do navegador
-  const browserLang = navigator.language || navigator.userLanguage;
+  const navigatorWithUserLanguage = navigator as Navigator & { userLanguage?: string };
+  const browserLang = navigator.language || navigatorWithUserLanguage.userLanguage || 'pt';
   
   // Mapear idiomas do navegador para nossos códigos
-  const languageMap = {
+  const languageMap: LanguageMap = {
     'pt': 'pt',      // Português
     'pt-BR': 'pt',   // Português Brasil
     'pt-PT': 'pt',   // Português Portugal
@@ -107,26 +128,27 @@ function detectBrowserLanguage() {
   return 'pt';
 }
 
-function detectLocationLanguage() {
-  // Tentar detectar idioma baseado na localização geográfica
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // Aqui poderíamos usar APIs de geolocalização reversa
-        // mas por simplicidade, vamos usar apenas o idioma do navegador
-        console.log('Localização detectada, mas usando idioma do navegador');
-      },
-      (error) => {
-        console.log('Erro ao detectar localização:', error);
-      }
-    );
-  }
-  
-  // Por enquanto, retornamos o idioma detectado do navegador
-  return detectBrowserLanguage();
-}
+// Função não utilizada atualmente - reservada para futuras funcionalidades
+// function detectLocationLanguage(): SupportedLanguage {
+//   // Tentar detectar idioma baseado na localização geográfica
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(
+//       (_position) => {
+//         // Aqui poderíamos usar APIs de geolocalização reversa
+//         // mas por simplicidade, vamos usar apenas o idioma do navegador
+//         console.log('Localização detectada, mas usando idioma do navegador');
+//       },
+//       (error) => {
+//         console.log('Erro ao detectar localização:', error);
+//       }
+//     );
+//   }
+//   
+//   // Por enquanto, retornamos o idioma detectado do navegador
+//   return detectBrowserLanguage();
+// }
 
-async function loadTranslations() {
+async function loadTranslations(): Promise<void> {
   try {
     console.log('Loading translations for language:', currentLanguage);
     const response = await fetch(`data/translations/${currentLanguage}.json`);
@@ -148,42 +170,56 @@ async function loadTranslations() {
     // Fallback to Portuguese if unable to load
     translations = {
       ui: {
-        title: "🎶 New World Music Tracker",
+        title: "New World Music Tracker",
         subtitle: "Marque as partes que você coletou. Um instrumento só conta se todas as partes forem coletadas.",
         partsCollected: "Partes Coletadas:",
         completeInstruments: "Instrumentos Completos:",
         completeSongs: "Músicas Completas:",
         resetProgress: "Resetar Progresso",
         exportProgress: "Exportar Progresso",
+        importProgress: "Importar Progresso",
         resetConfirm: "Tem certeza que deseja resetar todo o progresso? Esta ação não pode ser desfeita.",
         resetSuccess: "Progresso resetado com sucesso!",
-        exportSuccess: "Progresso exportado com sucesso!"
+        exportSuccess: "Progresso exportado com sucesso!",
+        importConfirm: "Tem certeza que deseja importar este arquivo? Os dados atuais serão substituídos.",
+        importSuccess: "Progresso importado com sucesso!",
+        importError: "Erro ao importar arquivo. Verifique se é um arquivo JSON válido."
       }
     };
     updateUITexts();
   }
 }
 
-function updateUITexts() {
+function updateUITexts(): void {
   if (translations.ui) {
-    document.getElementById('pageTitle').textContent = translations.ui.title;
-    document.getElementById('pageSubtitle').textContent = translations.ui.subtitle;
-    document.getElementById('partsLabel').textContent = translations.ui.partsCollected;
-    document.getElementById('instrumentsLabel').textContent = translations.ui.completeInstruments;
-    document.getElementById('songsLabel').textContent = translations.ui.completeSongs;
-    document.getElementById('resetBtn').textContent = translations.ui.resetProgress;
-    document.getElementById('exportBtn').textContent = translations.ui.exportProgress;
-    document.getElementById('importBtn').textContent = translations.ui.importProgress;
+    const pageTitle = document.getElementById('pageTitle');
+    const pageSubtitle = document.getElementById('pageSubtitle');
+    const partsLabel = document.getElementById('partsLabel');
+    const instrumentsLabel = document.getElementById('instrumentsLabel');
+    const songsLabel = document.getElementById('songsLabel');
+    const resetBtn = document.getElementById('resetBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const importBtn = document.getElementById('importBtn');
+
+    if (pageTitle) pageTitle.textContent = translations.ui.title;
+    if (pageSubtitle) pageSubtitle.textContent = translations.ui.subtitle;
+    if (partsLabel) partsLabel.textContent = translations.ui.partsCollected;
+    if (instrumentsLabel) instrumentsLabel.textContent = translations.ui.completeInstruments;
+    if (songsLabel) songsLabel.textContent = translations.ui.completeSongs;
+    if (resetBtn) resetBtn.textContent = translations.ui.resetProgress;
+    if (exportBtn) exportBtn.textContent = translations.ui.exportProgress;
+    if (importBtn) importBtn.textContent = translations.ui.importProgress;
   }
 }
 
-async function loadSongs() {
+async function loadSongs(): Promise<void> {
   try {
     console.log('Loading songs...');
     console.log('Current language:', currentLanguage);
     
     // Load translations first
     await loadTranslations();
+    console.log('Translations loaded:', translations);
     
     // Load songs data
     console.log('Loading songs data...');
@@ -200,6 +236,7 @@ async function loadSongs() {
     
     songs = data.songs;
     console.log('Songs loaded:', songs.length);
+    console.log('First song:', songs[0]);
     
     renderSongs();
     updateProgress();
@@ -213,20 +250,20 @@ async function loadSongs() {
   }
 }
 
-function getSongName(songId) {
+function getSongName(songId: string): string {
   return translations.songs && translations.songs[songId] ? translations.songs[songId] : songId;
 }
 
-function getInstrumentName(instrumentName) {
+function getInstrumentName(instrumentName: string): string {
   return translations.instruments && translations.instruments[instrumentName] ? translations.instruments[instrumentName] : instrumentName;
 }
 
-function getPartName(partName) {
+function getPartName(partName: string): string {
   return translations.parts && translations.parts[partName] ? translations.parts[partName] : partName;
 }
 
 // Função para verificar se uma música está completa
-function isSongComplete(song) {
+function isSongComplete(song: Song): boolean {
   if (!song || !song.instruments || song.instruments.length === 0) {
     return false;
   }
@@ -242,7 +279,7 @@ function isSongComplete(song) {
 }
 
 // Função para verificar se um instrumento está completo
-function isInstrumentComplete(songId, instrument) {
+function isInstrumentComplete(songId: string, instrument: { name: string; parts: string[] }): boolean {
   if (!instrument || !instrument.parts || instrument.parts.length === 0) {
     return false;
   }
@@ -257,13 +294,14 @@ function isInstrumentComplete(songId, instrument) {
   return true;
 }
 
-function renderSongs() {
+function renderSongs(): void {
   const container = document.getElementById('songsContainer');
   if (!container) {
     console.error('Songs container not found');
     return;
   }
 
+  console.log('Renderizando músicas:', songs.length, 'músicas encontradas');
   container.innerHTML = '';
 
   // Ordenar músicas: incompletas primeiro, completas no final
@@ -323,8 +361,8 @@ function renderSongs() {
   });
 }
 
-function handlePartToggle(event) {
-  const checkbox = event.target;
+function handlePartToggle(event: Event): void {
+  const checkbox = event.target as HTMLInputElement;
   const songId = checkbox.dataset.song;
   const instrumentName = checkbox.dataset.instrument;
   const partName = checkbox.dataset.part;
@@ -351,6 +389,11 @@ function handlePartToggle(event) {
     // Auto-refresh: reorganizar músicas automaticamente
     // Verificar se a música foi completada para aplicar animação especial
     const song = songs.find(s => s.id === songId);
+    if (!song) {
+      console.error('Song not found:', songId);
+      return;
+    }
+    
     const wasComplete = isSongComplete(song);
     
     // Pequeno delay para permitir que a animação visual seja percebida
@@ -377,7 +420,7 @@ function handlePartToggle(event) {
   }
 }
 
-function updateProgress() {
+function updateProgress(): void {
   let totalParts = 0;
   let collectedParts = 0;
   let completeInstruments = 0;
@@ -414,13 +457,17 @@ function updateProgress() {
     }
   });
 
-  document.getElementById('partsCount').textContent = `${collectedParts}/${totalParts}`;
-  document.getElementById('instrumentsCount').textContent = completeInstruments;
-  document.getElementById('songsCount').textContent = completeSongs;
+  const partsCount = document.getElementById('partsCount');
+  const instrumentsCount = document.getElementById('instrumentsCount');
+  const songsCount = document.getElementById('songsCount');
+
+  if (partsCount) partsCount.textContent = `${collectedParts}/${totalParts}`;
+  if (instrumentsCount) instrumentsCount.textContent = completeInstruments.toString();
+  if (songsCount) songsCount.textContent = completeSongs.toString();
 }
 
 // Função para fazer scroll até as músicas completas
-function scrollToCompleteSongs() {
+function scrollToCompleteSongs(): void {
   const completeSongs = document.querySelectorAll('.song-complete');
   if (completeSongs.length > 0) {
     // Scroll suave até a primeira música completa
@@ -435,7 +482,7 @@ function scrollToCompleteSongs() {
 }
 
 // Função para voltar ao topo
-function scrollToTop() {
+function scrollToTop(): void {
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -443,16 +490,16 @@ function scrollToTop() {
 }
 
 // Função para controlar a visibilidade do botão de voltar ao topo
-function toggleBackToTopButton() {
+function toggleBackToTopButton(): void {
   const backToTopBtn = document.getElementById('backToTopBtn');
   if (window.scrollY > 300) {
-    backToTopBtn.classList.add('show');
+    backToTopBtn?.classList.add('show');
   } else {
-    backToTopBtn.classList.remove('show');
+    backToTopBtn?.classList.remove('show');
   }
 }
 
-function resetProgress() {
+function resetProgress(): void {
   if (confirm(translations.ui.resetConfirm)) {
     try {
       collected = {};
@@ -467,10 +514,10 @@ function resetProgress() {
   }
 }
 
-function exportProgress() {
+function exportProgress(): void {
   try {
     // Criar objeto com metadados e dados
-    const exportData = {
+    const exportData: ExportData = {
       version: '1.0',
       exportDate: new Date().toISOString(),
       language: currentLanguage,
@@ -496,8 +543,8 @@ function exportProgress() {
   }
 }
 
-function importProgress() {
-  const fileInput = document.getElementById('importFile');
+function importProgress(): void {
+  const fileInput = document.getElementById('importFile') as HTMLInputElement;
   if (!fileInput) {
     console.error('Import file input not found');
     return;
@@ -506,8 +553,9 @@ function importProgress() {
   fileInput.click();
 }
 
-function handleFileImport(event) {
-  const file = event.target.files[0];
+function handleFileImport(event: Event): void {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
   if (!file) return;
   
   // Verificar se é um arquivo JSON
@@ -519,7 +567,7 @@ function handleFileImport(event) {
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
-      const importedData = JSON.parse(e.target.result);
+      const importedData = JSON.parse(e.target?.result as string);
       
       // Validar estrutura dos dados importados
       if (!importedData || typeof importedData !== 'object') {
@@ -527,7 +575,7 @@ function handleFileImport(event) {
       }
       
       // Extrair dados de progresso (compatibilidade com formato antigo e novo)
-      let progressData;
+      let progressData: CollectedData;
       if (importedData.progress) {
         // Formato novo com metadados
         progressData = importedData.progress;
@@ -580,17 +628,17 @@ function handleFileImport(event) {
   reader.readAsText(file);
   
   // Limpar input para permitir importar o mesmo arquivo novamente
-  event.target.value = '';
+  target.value = '';
 }
 
-function changeLanguage(lang) {
+function changeLanguage(lang: SupportedLanguage): void {
   currentLanguage = lang;
   localStorage.setItem('selectedLanguage', lang);
   updateActiveFlag();
   loadSongs();
 }
 
-function updateActiveFlag() {
+function updateActiveFlag(): void {
   // Remove active class from all flags
   document.querySelectorAll('.flag-btn').forEach(btn => {
     btn.classList.remove('active');
@@ -613,16 +661,23 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSongs();
   
   // Add event listeners
-  document.getElementById('resetBtn').addEventListener('click', resetProgress);
-  document.getElementById('exportBtn').addEventListener('click', exportProgress);
-  document.getElementById('importBtn').addEventListener('click', importProgress);
-  document.getElementById('importFile').addEventListener('change', handleFileImport);
+  const resetBtn = document.getElementById('resetBtn');
+  const exportBtn = document.getElementById('exportBtn');
+  const importBtn = document.getElementById('importBtn');
+  const importFile = document.getElementById('importFile');
+  const songsCount = document.getElementById('songsCount');
+  const backToTopBtn = document.getElementById('backToTopBtn');
+
+  if (resetBtn) resetBtn.addEventListener('click', resetProgress);
+  if (exportBtn) exportBtn.addEventListener('click', exportProgress);
+  if (importBtn) importBtn.addEventListener('click', importProgress);
+  if (importFile) importFile.addEventListener('change', handleFileImport);
   
   // Event listener para scroll até músicas completas
-  document.getElementById('songsCount').addEventListener('click', scrollToCompleteSongs);
+  if (songsCount) songsCount.addEventListener('click', scrollToCompleteSongs);
   
   // Event listener para botão de voltar ao topo
-  document.getElementById('backToTopBtn').addEventListener('click', scrollToTop);
+  if (backToTopBtn) backToTopBtn.addEventListener('click', scrollToTop);
   
   // Event listener para controlar visibilidade do botão de voltar ao topo
   window.addEventListener('scroll', toggleBackToTopButton);
@@ -631,8 +686,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const flagButtons = document.querySelectorAll('.flag-btn');
   flagButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-      const lang = e.currentTarget.dataset.lang;
-      changeLanguage(lang);
+      const target = e.currentTarget as HTMLElement;
+      const lang = target.dataset.lang as SupportedLanguage;
+      if (lang && (lang === 'pt' || lang === 'en' || lang === 'es')) {
+        changeLanguage(lang);
+      }
     });
   });
   

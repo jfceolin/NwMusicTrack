@@ -6,8 +6,8 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-  color: #e0e0e0;
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
+  color: var(--color-textPrimary);
   min-height: 100vh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -15,25 +15,40 @@ body {
 }
 
 .header-content {
-  text-align: center;
   padding: 2rem 1rem;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
-  border-bottom: 2px solid #ffcc00;
+  border-bottom: 2px solid var(--color-textPrimary);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
 .language-selector {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
+  margin-left: -4rem;
   display: flex;
   gap: 0.5rem;
 }
 
 .flag-btn {
   background: rgba(0, 0, 0, 0.3);
-  /* border: 2px solid #ffcc00; */
+  border: none;
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -49,8 +64,8 @@ body {
 
 .flag-btn.active {
   background: rgba(255, 204, 0, 0.3);
-  border-color: #ffdd44;
-  box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 15px var(--color-primary);
   transform: scale(1);
 }
 
@@ -71,9 +86,18 @@ body {
 }
 
 @media (max-width: 768px) {
-  .language-selector {
-    top: 0.5rem;
-    right: 0.5rem;
+  .header-top {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .header-logo {
+    width: 48px;
+    height: 48px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
   }
   
   .flag-btn {
@@ -94,12 +118,25 @@ body {
     min-width: 120px;
     max-width: 160px;
   }
+  
+  .progress-summary {
+    gap: 1rem;
+  }
+  
+  .progress-item {
+    min-width: 140px;
+    padding: 0.5rem 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .language-selector {
-    top: 0.2rem;
-    right: 0.2rem;
+  .header-logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  h1 {
+    font-size: 1.2rem;
   }
   
   .flag-btn {
@@ -108,8 +145,8 @@ body {
   }
   
   .flag-icon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
   }
   
   .instruments {
@@ -130,50 +167,59 @@ body {
   .progress-item {
     min-width: auto;
   }
+  
+  .footer-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 h1 {
-  color: #ffcc00;
+  color: var(--color-primary);
   font-size: 2rem;
-  margin-bottom: 0.5rem;
+  margin: 0;
+  text-align: center;
+  flex: 1;
 }
 
 .header-content p {
-  color: #b0b0b0;
+  color: var(--color-textSecondary);
   font-size: 1rem;
   margin-bottom: 1rem;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .progress-summary {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   margin-top: 1rem;
 }
 
 .progress-item {
   background: rgba(255, 204, 0, 0.1);
-  padding: 0.8rem 1.2rem;
+  padding: 0.6rem 1rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 204, 0, 0.3);
-  min-width: 200px;
+  min-width: 160px;
+  text-align: center;
 }
 
 .progress-label {
   display: block;
   font-size: 0.9rem;
-  color: #ffffff;
+  color: var(--color-textPrimary);
   margin-bottom: 0.2rem;
 }
 
 .progress-item span:last-child {
   font-size: 1rem;
   font-weight: bold;
-  color: #fff;
+  color: var(--color-textPrimary);
 }
 
 .clickable-counter {
@@ -187,7 +233,7 @@ h1 {
 .clickable-counter:hover {
   background: rgba(255, 204, 0, 0.2);
   transform: scale(1);
-  color: #ffffff !important;
+  color: var(--color-textPrimary) !important;
 }
 
 .songs-container {
@@ -200,18 +246,18 @@ h1 {
 }
 
 .song {
-  background: linear-gradient(145deg, #1c1c1c 0%, #2a2a2a 100%);
+  background: linear-gradient(145deg, var(--color-surface) 0%, var(--color-surfaceHover) 100%);
   border-radius: 8px;
   padding: 0.7rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 18px var(--color-shadow);
   border: 1px solid rgba(255, 204, 0, 0.2);
   transition: all 0.5s ease;
 }
 
 .song-complete {
-  background: linear-gradient(145deg, #1a2e1a 0%, #2a3a2a 100%);
-  border: 1px solid rgba(129, 199, 132, 0.4);
-  box-shadow: 0 8px 25px rgba(129, 199, 132, 0.2);
+  background: linear-gradient(145deg, var(--color-songComplete) 0%, var(--color-songComplete) 100%);
+  border: 1px solid var(--color-songComplete);
+  box-shadow: 0 8px 25px var(--color-songComplete);
   opacity: 0.8;
   animation: completeGlow 1s ease-in-out;
 }
@@ -278,15 +324,15 @@ h1 {
 }
 
 .song h3 {
-  color: #ffd54f;
+  color: var(--color-accent);
   font-size: 1.2rem;
   margin: 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 4px var(--color-shadow);
 }
 
 .complete-indicator {
-  background: linear-gradient(45deg, #81c784, #4caf50);
-  color: white;
+  background: linear-gradient(45deg, var(--color-success), var(--color-success));
+  color: var(--color-textPrimary);
   border-radius: 50%;
   width: 22px;
   height: 22px;
@@ -295,7 +341,7 @@ h1 {
   justify-content: center;
   font-size: 0.9rem;
   font-weight: bold;
-  box-shadow: 0 2px 8px rgba(129, 199, 132, 0.4);
+  box-shadow: 0 2px 8px var(--color-success);
   margin-left: 0.4rem;
   animation: pulse 2s infinite;
 }
@@ -363,14 +409,14 @@ h1 {
 }
 
 .instrument-name {
-  color: #80deea;
+  color: var(--color-textPrimary);
   font-weight: bold;
   font-size: 0.85rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 2px var(--color-shadow);
 }
 
 .instrument.complete .instrument-name {
-  color: #81c784;
+  color: var(--color-instrumentComplete);
 }
 
 .parts {
@@ -396,7 +442,7 @@ h1 {
 .part-checkbox input[type="checkbox"] {
   width: 14px;
   height: 14px;
-  accent-color: #ffcc00;
+  accent-color: var(--color-primary);
   cursor: pointer;
   transform: scale(1.05);
 }
@@ -404,27 +450,50 @@ h1 {
 .part-checkbox span {
   cursor: pointer;
   font-size: 0.8rem;
-  color: #e0e0e0;
+  color: var(--color-textPrimary);
   flex: 1;
   font-weight: 500;
   transition: all 0.3s ease;
 }
 
 .part-checkbox input[type="checkbox"]:checked + span {
-  color: #81c784;
+  color: var(--color-partCollected);
   text-decoration: line-through;
   font-weight: bold;
 }
 
 .part-checkbox input[type="checkbox"]:checked {
-  accent-color: #81c784;
+  accent-color: var(--color-partCollected);
 }
 
 .footer-content {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
   padding: 2rem 1rem;
   background: rgba(0, 0, 0, 0.3);
   border-top: 1px solid rgba(255, 204, 0, 0.2);
+  text-align: center;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-info p {
+  color: var(--color-textSecondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn {
@@ -439,13 +508,13 @@ h1 {
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, #ffcc00, #ffd54f);
-  color: #000;
+  background: linear-gradient(45deg, var(--color-buttonPrimary), var(--color-buttonPrimaryHover));
+  color: var(--color-textPrimary);
 }
 
 .btn-secondary {
-  background: linear-gradient(45deg, #666, #888);
-  color: #fff;
+  background: linear-gradient(45deg, var(--color-buttonSecondary), var(--color-buttonSecondaryHover));
+  color: var(--color-textPrimary);
 }
 
 /* Botão de voltar ao topo */
@@ -456,13 +525,13 @@ h1 {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #ffcc00, #ffd54f);
+  background: linear-gradient(45deg, var(--color-buttonPrimary), var(--color-buttonPrimaryHover));
   border: none;
-  color: #000;
+  color: var(--color-textPrimary);
   font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);
+  box-shadow: 0 4px 15px var(--color-shadow);
   transition: all 0.3s ease;
   z-index: 1000;
   display: none;
@@ -472,8 +541,8 @@ h1 {
 
 .back-to-top-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 204, 0, 0.6);
-  background: linear-gradient(45deg, #ffd54f, #ffcc00);
+  box-shadow: 0 6px 20px var(--color-shadowHover);
+  background: linear-gradient(45deg, var(--color-buttonPrimaryHover), var(--color-buttonPrimary));
 }
 
 .back-to-top-btn:active {
@@ -589,8 +658,6 @@ h1 {
     height: 20px;
   }
   
-  /* Language notification styles removed - detection is now silent */
-  
   .btn {
     display: block;
     width: 100%;
@@ -611,4 +678,4 @@ h1 {
     height: 12px;
   }
 }
-  
+

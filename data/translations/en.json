@@ -2,7 +2,7 @@
   "language": "English",
   "languageCode": "en",
   "ui": {
-    "title": "🎶 New World Music Tracker",
+    "title": "New World Music Tracker",
     "subtitle": "Mark the parts you have collected. An instrument only counts if all parts are collected.",
     "partsCollected": "Parts Collected:",
     "completeInstruments": "Complete Instruments:",

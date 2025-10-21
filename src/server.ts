@@ -1,11 +1,11 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+import * as http from 'http';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const PORT = process.env.PORT || 8080;
 
 // Mapeamento de tipos MIME
-const mimeTypes = {
+const mimeTypes: { [key: string]: string } = {
     '.html': 'text/html',
     '.js': 'text/javascript',
     '.css': 'text/css',
@@ -17,7 +17,7 @@ const mimeTypes = {
     '.ico': 'image/x-icon'
 };
 
-const server = http.createServer((req, res) => {
+const server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
     let filePath = '.' + req.url;
     
     // Se for a raiz, servir index.html
@@ -33,7 +33,7 @@ const server = http.createServer((req, res) => {
     const extname = String(path.extname(filePath)).toLowerCase();
     const mimeType = mimeTypes[extname] || 'application/octet-stream';
     
-    fs.readFile(filePath, (error, content) => {
+    fs.readFile(filePath, (error: NodeJS.ErrnoException | null, content: Buffer) => {
         if (error) {
             if (error.code === 'ENOENT') {
                 // Arquivo não encontrado

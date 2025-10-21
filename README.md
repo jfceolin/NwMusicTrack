@@ -1,108 +1,158 @@
-# 🎵 New World Music Tracker
+# New World Music Tracker
 
-A web application to track progress in collecting songs and instruments from the New World game.
+Aplicação web para rastrear o progresso de coleta de músicas e instrumentos do jogo New World.
 
-## 🌐 Online Access
+## 📋 Características
 
-**🔗 [Access the application here](https://new-world-music-tracker.vercel.app/)**
+- ✅ Sistema de rastreamento de partes de instrumentos
+- ✅ Suporte multi-idioma (Português, Inglês, Espanhol)
+- ✅ Armazenamento local do progresso
+- ✅ Exportação/Importação de dados
+- ✅ Interface responsiva
+- ✅ TypeScript com tipagem estrita
+- ✅ Sistema de cores centralizado
 
-## 📁 Project Structure
+## 🚀 Como Usar
 
-```
-nw music/
-├── index.html              # Main page
-├── main.js                # JavaScript logic
-├── style.css              # CSS styles
-├── data/                  # JSON data
-│   ├── songs.json         # Song data
-│   └── translations/      # Translation files
-│       ├── pt.json        # Portuguese
-│       ├── en.json        # English
-│       └── es.json        # Spanish
-├── images/                # Instrument images
-├── docs/                  # Documentation
-├── .nojekyll              # GitHub Pages config
-└── README.md              # This file
-```
-
-## 🚀 Quick Start
-
-1. **Online**: Access the link above
-2. **Local**: Open `index.html` directly in the browser (works without server!)
-3. Mark collected parts by clicking the checkboxes
-4. Track your progress in the counters at the top
-5. Use reset and export buttons as needed
-
-> ✅ **Works offline**: The application works even by opening the file directly in the browser!
-
-## 🎯 Features
-
-- ✅ Real-time progress tracking
-- ✅ Data persistence in localStorage
-- ✅ Responsive and modern interface
-- ✅ Export/import system
-- ✅ Multi-language support (PT/EN/ES)
-- ✅ 56 New World songs with instruments
-
-## 🛠️ Technologies
-
-- HTML5
-- CSS3
-- JavaScript ES6+
-- LocalStorage API
-- GitHub Pages
-
-## ✅ Best Practices Implemented
-
-- **SEO**: Meta tags, favicon, correct lang
-- **Performance**: Optimized CSS, font-smoothing
-- **Accessibility**: Semantic structure, adequate contrast
-- **Responsiveness**: Mobile-first design
-- **Error Handling**: Validations and fallbacks
-- **Clean Code**: Comments, organized structure
-- **Vercel**: Optimized configuration with vercel.json
-
-## 📦 Deploy to Vercel
-
-1. **Fork** this repository
-2. **Connect** to Vercel (vercel.com)
-3. **Import** the repository
-4. **Deploy** automatically
-5. **Access** your custom domain or Vercel URL
-
-## 📚 Documentation
-
-- **[Deployment Guide](docs/DEPLOYMENT.md)** - Complete deployment instructions
-- **[Development Guide](docs/DEVELOPMENT.md)** - Local development setup
-- **[Features Guide](docs/FEATURES.md)** - Feature testing and usage
-- **[Translation Guide](docs/TRANSLATION.md)** - Multi-language support
-
-## 🔧 Local Development
-
-For local development, use a web server:
+### Instalação
 
 ```bash
-# Node.js
-npx http-server
+# Instalar dependências
+npm install
+```
 
-## 🧪 Testing
+### Desenvolvimento
 
-See [Features Guide](docs/FEATURES.md) for complete testing instructions.
+```bash
+# Compilar TypeScript
+npm run build
 
-## 🌍 Multi-language Support
+# Iniciar servidor de desenvolvimento
+npm run dev
 
-- **Portuguese** (default) - `index.html`
-- **English** - `en.html`
-- **Spanish** - `es.html`
+# Assistir mudanças (compilação automática)
+npm run watch
+```
 
-## 📄 License
+### Produção
 
-This project is open source and available under the [MIT License](LICENSE).
+```bash
+# Compilar para produção
+npm run build
 
-## 🤝 Contributing
+# Iniciar servidor
+npm start
+```
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+## 🛠️ Scripts Disponíveis
+
+- `npm run build` - Compila o TypeScript para JavaScript
+- `npm start` - Inicia o servidor de produção
+- `npm run dev` - Compila e inicia o servidor
+- `npm run watch` - Modo watch para desenvolvimento
+- `npm run clean` - Remove arquivos compilados
+- `npm run lint` - Verifica código com ESLint
+- `npm run lint:fix` - Corrige problemas automaticamente
+- `npm run format` - Formata código com Prettier
+- `npm run format:check` - Verifica formatação
+- `npm run type-check` - Verifica tipos sem compilar
+
+## 📁 Estrutura do Projeto
+
+```
+nw-music/
+├── src/
+│   ├── main.ts              # Arquivo principal da aplicação
+│   ├── server.ts            # Servidor HTTP
+│   ├── types.ts             # Definições de tipos TypeScript
+│   ├── utils/
+│   │   ├── colors.ts        # Sistema de cores centralizado
+│   │   └── index.ts         # Barrel export
+│   └── styles/
+│       └── style.css        # Estilos da aplicação
+├── data/
+│   ├── songs.json           # Dados das músicas
+│   └── translations/        # Arquivos de tradução
+│       ├── pt.json
+│       ├── en.json
+│       └── es.json
+├── images/                  # Imagens e ícones
+├── dist/                    # Arquivos compilados (gerado)
+├── .eslintrc.json          # Configuração ESLint
+├── .prettierrc             # Configuração Prettier
+├── tsconfig.json           # Configuração TypeScript
+└── package.json            # Dependências e scripts
+```
+
+## 🎨 Sistema de Cores
+
+O projeto utiliza um sistema de cores centralizado em `src/utils/colors.ts`:
+
+- Cores são definidas como constantes exportadas
+- Função `applyColors()` aplica as cores como variáveis CSS
+- Facilita manutenção e tematização
+
+## 🔧 Tecnologias
+
+- **TypeScript** - Linguagem principal com tipagem estrita
+- **Node.js** - Runtime do servidor
+- **ESLint** - Linting de código
+- **Prettier** - Formatação de código
+- **CSS3** - Estilização com variáveis customizadas
+
+## 📝 Boas Práticas Implementadas
+
+### TypeScript
+- ✅ Modo `strict` habilitado
+- ✅ Source maps para debugging
+- ✅ Sem uso de `any`
+- ✅ Tipos explícitos em todas as funções
+- ✅ Validação rigorosa de null/undefined
+
+### Código
+- ✅ Sem duplicação de código
+- ✅ Separação de responsabilidades
+- ✅ Sistema de módulos ES6
+- ✅ Barrel exports para organização
+
+### Qualidade
+- ✅ ESLint configurado
+- ✅ Prettier configurado
+- ✅ Git ignore apropriado
+- ✅ Scripts de validação
+
+## 🌍 Suporte a Idiomas
+
+A aplicação detecta automaticamente o idioma do navegador e suporta:
+
+- 🇧🇷 Português (pt)
+- 🇺🇸 Inglês (en)
+- 🇪🇸 Espanhol (es)
+
+## 💾 Armazenamento
+
+Os dados são salvos automaticamente no `localStorage` do navegador:
+- Progresso de coleta
+- Idioma selecionado
+
+## 📤 Exportar/Importar
+
+- **Exportar**: Salva o progresso em arquivo JSON
+- **Importar**: Restaura progresso de arquivo JSON
+- Formato compatível com versões antigas
+
+## 🤝 Contribuindo
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT.
+
+---
+
+Desenvolvido com ❤️ para a comunidade de New World
