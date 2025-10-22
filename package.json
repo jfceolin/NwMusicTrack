@@ -2,7 +2,6 @@
   "name": "nw-music-tracker",
   "version": "1.0.0",
   "description": "New World Music Tracker - Aplicação para rastrear progresso de músicas",
-  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
