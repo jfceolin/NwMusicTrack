@@ -16,7 +16,9 @@
     "importSuccess": "Progress imported successfully!",
     "importError": "Error importing file. Please check if it's a valid progress file.",
     "importConfirm": "This will replace all current progress. Do you want to continue?",
-    "noCompleteSongs": "No complete songs found."
+    "noCompleteSongs": "No complete songs found.",
+    "footerCopyright": "© 2024 New World Music Tracker. All rights reserved.",
+    "footerDescription": "Developed to track progress in collecting songs and instruments from the New World game."
   },
   "instruments": {
     "Guitar": "Guitar",

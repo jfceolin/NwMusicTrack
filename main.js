@@ -17,7 +17,9 @@ let translations = {
         exportSuccess: "Progresso exportado com sucesso!",
         importConfirm: "Tem certeza que deseja importar este arquivo? Os dados atuais serão substituídos.",
         importSuccess: "Progresso importado com sucesso!",
-        importError: "Erro ao importar arquivo. Verifique se é um arquivo JSON válido."
+        importError: "Erro ao importar arquivo. Verifique se é um arquivo JSON válido.",
+        footerCopyright: "© 2024 New World Music Tracker. Todos os direitos reservados.",
+        footerDescription: "Desenvolvido para acompanhar o progresso na coleta de músicas e instrumentos do jogo New World."
     }
 };
 // Função para carregar dados do localStorage com validação
@@ -181,6 +183,8 @@ function updateUITexts() {
         const resetBtn = document.getElementById('resetBtn');
         const exportBtn = document.getElementById('exportBtn');
         const importBtn = document.getElementById('importBtn');
+        const footerCopyright = document.getElementById('footerCopyright');
+        const footerDescription = document.getElementById('footerDescription');
         if (pageTitle)
             pageTitle.textContent = translations.ui.title;
         if (pageSubtitle)
@@ -197,6 +201,10 @@ function updateUITexts() {
             exportBtn.textContent = translations.ui.exportProgress;
         if (importBtn)
             importBtn.textContent = translations.ui.importProgress;
+        if (footerCopyright)
+            footerCopyright.textContent = translations.ui.footerCopyright;
+        if (footerDescription)
+            footerDescription.textContent = translations.ui.footerDescription;
     }
 }
 async function loadSongs() {
@@ -265,17 +273,21 @@ function renderSongs() {
         return;
     }
     container.innerHTML = '';
-    // Ordenar músicas: incompletas primeiro, completas no final
+    // Ordenar músicas: primeiro por status (incompletas primeiro), depois alfabeticamente por nome traduzido
     const sortedSongs = [...songs].sort((a, b) => {
         const aComplete = isSongComplete(a);
         const bComplete = isSongComplete(b);
+        
         // Se uma está completa e outra não, a incompleta vem primeiro
         if (aComplete && !bComplete)
             return 1;
         if (!aComplete && bComplete)
             return -1;
-        // Se ambas têm o mesmo status, manter ordem original
-        return 0;
+        
+        // Se ambas têm o mesmo status, ordenar alfabeticamente por nome traduzido
+        const aName = getSongName(a.id).toLowerCase();
+        const bName = getSongName(b.id).toLowerCase();
+        return aName.localeCompare(bName, currentLanguage === 'pt' ? 'pt-BR' : currentLanguage === 'es' ? 'es' : 'en');
     });
     sortedSongs.forEach(song => {
         const songDiv = document.createElement('div');
