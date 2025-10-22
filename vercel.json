@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "new-world-music-tracker",
+  "buildCommand": "npm run build:vercel",
   "builds": [
     {
       "src": "**/*",

@@ -5,6 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
+    "build:vercel": "tsc && node build-vercel.js",
     "start": "node dist/server.js",
     "dev": "tsc && node dist/server.js",
     "watch": "tsc --watch",
