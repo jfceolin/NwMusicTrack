@@ -1,158 +1,143 @@
-# New World Music Tracker
+New World Music Tracker
 
-Aplicação web para rastrear o progresso de coleta de músicas e instrumentos do jogo New World.
+A web app for tracking the collection progress of songs and instruments in the game New World.
 
-## 📋 Características
+📋 Features
+	•	✅ Instrument part tracking system
+	•	✅ Multi-language support (Portuguese, English, Spanish)
+	•	✅ Local progress storage
+	•	✅ Data export/import
+	•	✅ Responsive interface
+	•	✅ TypeScript with strict typing
+	•	✅ Centralized color system
 
-- ✅ Sistema de rastreamento de partes de instrumentos
-- ✅ Suporte multi-idioma (Português, Inglês, Espanhol)
-- ✅ Armazenamento local do progresso
-- ✅ Exportação/Importação de dados
-- ✅ Interface responsiva
-- ✅ TypeScript com tipagem estrita
-- ✅ Sistema de cores centralizado
+🚀 How to Use
 
-## 🚀 Como Usar
-
-### Instalação
+# Install dependencies
 
 ```bash
-# Instalar dependências
 npm install
 ```
 
-### Desenvolvimento
+### Development
 
 ```bash
-# Compilar TypeScript
+# Compile TypeScript
 npm run build
 
-# Iniciar servidor de desenvolvimento
+# Start development server
 npm run dev
 
-# Assistir mudanças (compilação automática)
+# Watch for changes (auto compile)
 npm run watch
 ```
 
-### Produção
+### Production
 
 ```bash
-# Compilar para produção
+# Build for production
 npm run build
 
-# Iniciar servidor
+# Start server
 npm start
 ```
 
-## 🛠️ Scripts Disponíveis
+🛠️ Available Scripts
+	•	npm run build - Compiles TypeScript to JavaScript
+	•	npm start - Starts production server
+	•	npm run dev - Compiles and runs development server
+	•	npm run watch - Watch mode for development
+	•	npm run clean - Removes compiled files
+	•	npm run lint - Runs ESLint code check
+	•	npm run lint:fix - Automatically fixes issues
+	•	npm run format - Formats code with Prettier
+	•	npm run format:check - Checks code formatting
+	•	npm run type-check - Type checking without compiling
 
-- `npm run build` - Compila o TypeScript para JavaScript
-- `npm start` - Inicia o servidor de produção
-- `npm run dev` - Compila e inicia o servidor
-- `npm run watch` - Modo watch para desenvolvimento
-- `npm run clean` - Remove arquivos compilados
-- `npm run lint` - Verifica código com ESLint
-- `npm run lint:fix` - Corrige problemas automaticamente
-- `npm run format` - Formata código com Prettier
-- `npm run format:check` - Verifica formatação
-- `npm run type-check` - Verifica tipos sem compilar
+📁 Project Structure
 
-## 📁 Estrutura do Projeto
-
-```
 nw-music/
 ├── src/
-│   ├── main.ts              # Arquivo principal da aplicação
-│   ├── server.ts            # Servidor HTTP
-│   ├── types.ts             # Definições de tipos TypeScript
+│   ├── main.ts              # Main application file
+│   ├── server.ts            # HTTP server
+│   ├── types.ts             # TypeScript type definitions
 │   ├── utils/
-│   │   ├── colors.ts        # Sistema de cores centralizado
+│   │   ├── colors.ts        # Centralized color system
 │   │   └── index.ts         # Barrel export
 │   └── styles/
-│       └── style.css        # Estilos da aplicação
+│       └── style.css        # App styles
 ├── data/
-│   ├── songs.json           # Dados das músicas
-│   └── translations/        # Arquivos de tradução
+│   ├── songs.json           # Song data
+│   └── translations/        # Translation files
 │       ├── pt.json
 │       ├── en.json
 │       └── es.json
-├── images/                  # Imagens e ícones
-├── dist/                    # Arquivos compilados (gerado)
-├── .eslintrc.json          # Configuração ESLint
-├── .prettierrc             # Configuração Prettier
-├── tsconfig.json           # Configuração TypeScript
-└── package.json            # Dependências e scripts
-```
+├── images/                  # Images and icons
+├── dist/                    # Compiled files (generated)
+├── .eslintrc.json           # ESLint config
+├── .prettierrc              # Prettier config
+├── tsconfig.json            # TypeScript config
+└── package.json             # Dependencies and scripts
 
-## 🎨 Sistema de Cores
+🎨 Color System
+The project uses a centralized color system in src/utils/colors.ts:
+	•	Colors are defined as exported constants
+	•	The applyColors() function sets them as CSS variables
+	•	Simplifies maintenance and theming
 
-O projeto utiliza um sistema de cores centralizado em `src/utils/colors.ts`:
+🔧 Technologies
+	•	TypeScript – Main language with strict typing
+	•	Node.js – Server runtime
+	•	ESLint – Code linting
+	•	Prettier – Code formatting
+	•	CSS3 – Styling with custom variables
 
-- Cores são definidas como constantes exportadas
-- Função `applyColors()` aplica as cores como variáveis CSS
-- Facilita manutenção e tematização
+📝 Best Practices Implemented
 
-## 🔧 Tecnologias
+TypeScript
+	•	✅ strict mode enabled
+	•	✅ Source maps for debugging
+	•	✅ No use of any
+	•	✅ Explicit types on all functions
+	•	✅ Strict null/undefined checks
 
-- **TypeScript** - Linguagem principal com tipagem estrita
-- **Node.js** - Runtime do servidor
-- **ESLint** - Linting de código
-- **Prettier** - Formatação de código
-- **CSS3** - Estilização com variáveis customizadas
+Code
+	•	✅ No code duplication
+	•	✅ Clear separation of responsibilities
+	•	✅ ES6 module system
+	•	✅ Barrel exports for organization
 
-## 📝 Boas Práticas Implementadas
+Quality
+	•	✅ ESLint configured
+	•	✅ Prettier configured
+	•	✅ Proper .gitignore
+	•	✅ Validation scripts
 
-### TypeScript
-- ✅ Modo `strict` habilitado
-- ✅ Source maps para debugging
-- ✅ Sem uso de `any`
-- ✅ Tipos explícitos em todas as funções
-- ✅ Validação rigorosa de null/undefined
+🌍 Language Support
 
-### Código
-- ✅ Sem duplicação de código
-- ✅ Separação de responsabilidades
-- ✅ Sistema de módulos ES6
-- ✅ Barrel exports para organização
+The app automatically detects browser language and supports:
+	•	🇧🇷 Portuguese (pt)
+	•	🇺🇸 English (en)
+	•	🇪🇸 Spanish (es)
 
-### Qualidade
-- ✅ ESLint configurado
-- ✅ Prettier configurado
-- ✅ Git ignore apropriado
-- ✅ Scripts de validação
+💾 Storage
 
-## 🌍 Suporte a Idiomas
+All data is automatically saved to the browser’s localStorage:
+	•	Collection progress
+	•	Selected language
 
-A aplicação detecta automaticamente o idioma do navegador e suporta:
+📤 Export / Import
+	•	Export: Saves progress as a JSON file
+	•	Import: Restores progress from JSON file
+	•	Compatible with older versions
 
-- 🇧🇷 Português (pt)
-- 🇺🇸 Inglês (en)
-- 🇪🇸 Espanhol (es)
+🤝 Contributing
+	1.	Fork the repository
+	2.	Create your feature branch (git checkout -b feature/new-feature)
+	3.	Commit your changes (git commit -m 'Add new feature')
+	4.	Push to the branch (git push origin feature/new-feature)
+	5.	Open a Pull Request
 
-## 💾 Armazenamento
+📄 License
 
-Os dados são salvos automaticamente no `localStorage` do navegador:
-- Progresso de coleta
-- Idioma selecionado
-
-## 📤 Exportar/Importar
-
-- **Exportar**: Salva o progresso em arquivo JSON
-- **Importar**: Restaura progresso de arquivo JSON
-- Formato compatível com versões antigas
-
-## 🤝 Contribuindo
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT.
-
----
-
-Desenvolvido com ❤️ para a comunidade de New World
+This project is under the MIT License.
