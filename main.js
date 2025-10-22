@@ -32,7 +32,6 @@ function loadFromLocalStorage() {
         }
     }
     catch (error) {
-        console.error('Error loading from localStorage:', error);
         collected = {};
     }
     try {
@@ -60,16 +59,13 @@ function testLocalStorage() {
         const retrieved = localStorage.getItem(testKey);
         localStorage.removeItem(testKey);
         if (retrieved === testValue) {
-            console.log('✅ localStorage está funcionando corretamente');
             return true;
         }
         else {
-            console.error('❌ localStorage não está funcionando corretamente');
             return false;
         }
     }
     catch (error) {
-        console.error('❌ Erro ao testar localStorage:', error);
         return false;
     }
 }
@@ -140,7 +136,6 @@ function detectBrowserLanguage() {
 // }
 async function loadTranslations() {
     try {
-        console.log('Loading translations for language:', currentLanguage);
         const response = await fetch(`data/translations/${currentLanguage}.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -151,11 +146,9 @@ async function loadTranslations() {
             throw new Error('Invalid translation data structure');
         }
         translations = data;
-        console.log('Translations loaded:', translations);
         updateUITexts();
     }
     catch (error) {
-        console.error('Error loading translations:', error);
         // Fallback to Portuguese if unable to load
         translations = {
             ui: {
@@ -208,34 +201,23 @@ function updateUITexts() {
 }
 async function loadSongs() {
     try {
-        console.log('🎵 Loading songs...');
-        console.log('🌐 Current language:', currentLanguage);
-        console.log('📍 Current URL:', window.location.href);
         // Load translations first
         await loadTranslations();
-        console.log('✅ Translations loaded:', translations);
         // Load songs data
-        console.log('📁 Loading songs data from: data/songs.json');
         const response = await fetch('data/songs.json');
-        console.log('📡 Response status:', response.status);
-        console.log('📡 Response ok:', response.ok);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('📊 Data received:', data);
         // Validar estrutura dos dados
         if (!data || !Array.isArray(data.songs)) {
             throw new Error('Invalid songs data structure');
         }
         songs = data.songs;
-        console.log('🎵 Songs loaded:', songs.length);
-        console.log('🎵 First song:', songs[0]);
         renderSongs();
         updateProgress();
     }
     catch (error) {
-        console.error('❌ Error loading songs:', error);
         const container = document.getElementById('songsContainer');
         if (container) {
             container.innerHTML = '<p>Erro ao carregar músicas. Por favor, tente novamente mais tarde.</p>';
@@ -280,11 +262,8 @@ function isInstrumentComplete(songId, instrument) {
 function renderSongs() {
     const container = document.getElementById('songsContainer');
     if (!container) {
-        console.error('❌ Songs container not found');
         return;
     }
-    console.log('🎨 Renderizando músicas:', songs.length, 'músicas encontradas');
-    console.log('🎨 Container found:', container);
     container.innerHTML = '';
     // Ordenar músicas: incompletas primeiro, completas no final
     const sortedSongs = [...songs].sort((a, b) => {
@@ -346,7 +325,6 @@ function handlePartToggle(event) {
     const partName = checkbox.dataset.part;
     // Validar dados
     if (!songId || !instrumentName || !partName) {
-        console.error('Invalid data attributes in checkbox');
         return;
     }
     if (!collected[songId]) {
@@ -363,7 +341,6 @@ function handlePartToggle(event) {
         // Verificar se a música foi completada para aplicar animação especial
         const song = songs.find(s => s.id === songId);
         if (!song) {
-            console.error('Song not found:', songId);
             return;
         }
         const wasComplete = isSongComplete(song);
@@ -385,12 +362,12 @@ function handlePartToggle(event) {
         }, 300);
     }
     catch (error) {
-        console.error('Error saving to localStorage:', error);
     }
 }
 function updateProgress() {
     let totalParts = 0;
     let collectedParts = 0;
+    let totalInstruments = 0;
     let completeInstruments = 0;
     let completeSongs = 0;
     songs.forEach(song => {
@@ -399,6 +376,7 @@ function updateProgress() {
         let songCompleteInstruments = 0;
         song.instruments.forEach(instrument => {
             songInstruments++;
+            totalInstruments++;
             let instrumentComplete = true;
             instrument.parts.forEach(part => {
                 totalParts++;
@@ -427,9 +405,9 @@ function updateProgress() {
     if (partsCount)
         partsCount.textContent = `${collectedParts}/${totalParts}`;
     if (instrumentsCount)
-        instrumentsCount.textContent = completeInstruments.toString();
+        instrumentsCount.textContent = `${completeInstruments}/${totalInstruments}`;
     if (songsCount)
-        songsCount.textContent = completeSongs.toString();
+        songsCount.textContent = `${completeSongs}/${songs.length}`;
 }
 // Função para fazer scroll até as músicas completas
 function scrollToCompleteSongs() {
@@ -473,7 +451,6 @@ function resetProgress() {
             alert(translations.ui.resetSuccess);
         }
         catch (error) {
-            console.error('Error resetting progress:', error);
             alert('Erro ao resetar progresso. Tente novamente.');
         }
     }
@@ -502,14 +479,12 @@ function exportProgress() {
         alert(translations.ui.exportSuccess);
     }
     catch (error) {
-        console.error('Error exporting progress:', error);
         alert('Erro ao exportar progresso. Tente novamente.');
     }
 }
 function importProgress() {
     const fileInput = document.getElementById('importFile');
     if (!fileInput) {
-        console.error('Import file input not found');
         return;
     }
     fileInput.click();
@@ -537,16 +512,10 @@ function handleFileImport(event) {
             if (importedData.progress) {
                 // Formato novo com metadados
                 progressData = importedData.progress;
-                console.log('Importing from new format:', {
-                    version: importedData.version,
-                    exportDate: importedData.exportDate,
-                    language: importedData.language
-                });
             }
             else {
                 // Formato antigo (dados diretos)
                 progressData = importedData;
-                console.log('Importing from legacy format');
             }
             // Validar se os dados de progresso são válidos
             if (!progressData || typeof progressData !== 'object') {
@@ -565,18 +534,15 @@ function handleFileImport(event) {
                     alert(translations.ui.importSuccess);
                 }
                 catch (error) {
-                    console.error('Error saving imported data:', error);
                     alert('Erro ao salvar dados importados. Tente novamente.');
                 }
             }
         }
         catch (error) {
-            console.error('Error parsing imported file:', error);
             alert(translations.ui.importError);
         }
     };
     reader.onerror = function () {
-        console.error('Error reading file');
         alert(translations.ui.importError);
     };
     reader.readAsText(file);
