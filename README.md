@@ -13,7 +13,7 @@ A web app for tracking the collection progress of songs and instruments in the g
 
 🚀 How to Use
 
-# Install dependencies
+### Install dependencies
 
 ```bash
 npm install
@@ -56,14 +56,12 @@ npm start
 
 📁 Project Structure
 
+```
 nw-music/
 ├── src/
 │   ├── main.ts              # Main application file
 │   ├── server.ts            # HTTP server
 │   ├── types.ts             # TypeScript type definitions
-│   ├── utils/
-│   │   ├── colors.ts        # Centralized color system
-│   │   └── index.ts         # Barrel export
 │   └── styles/
 │       └── style.css        # App styles
 ├── data/
@@ -74,16 +72,19 @@ nw-music/
 │       └── es.json
 ├── images/                  # Images and icons
 ├── dist/                    # Compiled files (generated)
-├── .eslintrc.json           # ESLint config
-├── .prettierrc              # Prettier config
+├── docs/                    # Documentation
+├── index.html               # Main HTML file
 ├── tsconfig.json            # TypeScript config
+├── vercel.json              # Vercel deployment config
 └── package.json             # Dependencies and scripts
+```
 
 🎨 Color System
-The project uses a centralized color system in src/utils/colors.ts:
-	•	Colors are defined as exported constants
-	•	The applyColors() function sets them as CSS variables
+The project uses a centralized color system implemented with CSS custom properties:
+	•	Colors are defined as CSS variables in `:root`
+	•	Variables are used throughout the stylesheet for consistency
 	•	Simplifies maintenance and theming
+	•	Supports dark theme with carefully chosen color palette
 
 🔧 Technologies
 	•	TypeScript – Main language with strict typing
