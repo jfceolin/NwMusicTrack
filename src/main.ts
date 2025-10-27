@@ -664,7 +664,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Inicializar Analytics do Vercel dinamicamente
   try {
     const { inject } = await import('@vercel/analytics');
-    inject();
+    inject({
+      mode: 'production',
+      debug: false
+    });
     console.log('✅ Vercel Analytics inicializado com sucesso');
   } catch (error) {
     console.warn('⚠️ Erro ao inicializar Vercel Analytics:', error);
