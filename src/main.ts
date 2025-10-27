@@ -660,7 +660,16 @@ function updateActiveFlag(): void {
 // Language detection is now silent - no notification shown
 
 // Initialize the app
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Inicializar Analytics do Vercel dinamicamente
+  try {
+    const { inject } = await import('@vercel/analytics');
+    inject();
+    console.log('✅ Vercel Analytics inicializado com sucesso');
+  } catch (error) {
+    console.warn('⚠️ Erro ao inicializar Vercel Analytics:', error);
+  }
+  
   // Testar localStorage
   testLocalStorage();
   
